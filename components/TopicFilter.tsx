@@ -19,7 +19,7 @@ export default function TopicFilter({
   return (
     <div className="w-full mb-6">
       <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-        <Tag className="w-3.5 h-3.5 text-indigo-500" />
+        <Tag className="w-3.5 h-3.5 text-python-blue dark:text-python-blue-light" />
         <span>Filter by Python Concept</span>
       </div>
       <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
@@ -28,7 +28,7 @@ export default function TopicFilter({
           onClick={() => onSelectTopic('All')}
           className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
             selectedTopic === 'All'
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/25'
+              ? 'bg-python-blue text-white shadow-md shadow-brand-500/25'
               : 'bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-slate-800'
           }`}
         >
@@ -44,7 +44,7 @@ export default function TopicFilter({
               onClick={() => onSelectTopic(topic)}
               className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
                 isSelected
-                  ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-500/25'
+                  ? 'bg-python-blue text-white font-semibold shadow-md shadow-brand-500/25'
                   : 'bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/80 dark:border-slate-800'
               }`}
             >

@@ -47,7 +47,7 @@ export default function Header({
           {/* Logo & Subtitle */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-linear-to-tr from-blue-600 via-indigo-600 to-amber-400 p-0.5 shadow-md shadow-indigo-500/10">
+              <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-linear-to-tr from-python-blue via-brand-600 to-python-gold p-0.5 shadow-md shadow-brand-500/10">
                 <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
                   <span className="text-xl">🐍</span>
                 </div>
@@ -57,7 +57,7 @@ export default function Header({
                   <h1 className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
                     Python MCQ Arena
                   </h1>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-success-500/10 text-success-600 dark:text-success-500 border border-success-500/20">
                     <Sparkles className="w-3 h-3" />
                     v2.0
                   </span>
@@ -80,7 +80,7 @@ export default function Header({
                 className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300"
                 aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
               >
-                {isMuted ? <VolumeX className="w-4 h-4 text-rose-500" /> : <Volume2 className="w-4 h-4 text-emerald-500" />}
+                {isMuted ? <VolumeX className="w-4 h-4 text-danger-500" /> : <Volume2 className="w-4 h-4 text-success-500" />}
               </button>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function Header({
                 onClick={() => onModeChange('practice')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   mode === 'practice'
-                    ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                    ? 'bg-white dark:bg-slate-800 text-python-blue dark:text-python-blue-light shadow-sm'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -106,7 +106,7 @@ export default function Header({
                 onClick={() => onModeChange('exam')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   mode === 'exam'
-                    ? 'bg-white dark:bg-slate-800 text-amber-600 dark:text-amber-400 shadow-sm'
+                    ? 'bg-white dark:bg-slate-800 text-warning-600 dark:text-warning-500 shadow-sm'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -148,12 +148,12 @@ export default function Header({
           <div className="hidden md:flex items-center gap-2.5">
             {/* Timer Widget */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-xs font-mono font-medium text-slate-700 dark:text-slate-300 shadow-sm">
-              <Clock className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
+              <Clock className="w-3.5 h-3.5 text-python-blue animate-pulse" />
               <span>{formatTime(timerSeconds)}</span>
               <button
                 type="button"
                 onClick={onToggleTimer}
-                className="hover:text-indigo-500 transition-colors"
+                className="hover:text-python-blue transition-colors"
                 title={isTimerRunning ? 'Pause timer' : 'Resume timer'}
               >
                 {isTimerRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
@@ -164,10 +164,10 @@ export default function Header({
             <button
               type="button"
               onClick={onToggleMute}
-              className="p-2 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:border-indigo-400/50 transition-all shadow-sm active:scale-95"
+              className="p-2 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-600 dark:text-slate-300 hover:border-brand-500/50 transition-all shadow-sm active:scale-95"
               title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
             >
-              {isMuted ? <VolumeX className="w-4 h-4 text-rose-500" /> : <Volume2 className="w-4 h-4 text-emerald-500" />}
+              {isMuted ? <VolumeX className="w-4 h-4 text-danger-500" /> : <Volume2 className="w-4 h-4 text-success-500" />}
             </button>
 
             {/* Theme Toggle */}
@@ -177,7 +177,7 @@ export default function Header({
             <button
               type="button"
               onClick={onResetQuiz}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-rose-200/60 dark:border-rose-900/40 bg-rose-50/50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400 text-xs font-semibold hover:bg-rose-100/60 dark:hover:bg-rose-900/30 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-danger-100/60 dark:border-danger-900/40 bg-danger-50/50 dark:bg-danger-950/20 text-danger-600 dark:text-danger-400 text-xs font-semibold hover:bg-danger-100/60 dark:hover:bg-danger-900/30 transition-all active:scale-95"
               title="Reset all answers"
             >
               <RotateCcw className="w-3.5 h-3.5" />

@@ -149,13 +149,13 @@ export default function QuizResults({
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-5 text-center md:text-left">
-          <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl bg-linear-to-tr from-indigo-500 via-blue-600 to-amber-400 p-1 shadow-lg shadow-indigo-500/20">
+          <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl bg-linear-to-tr from-python-blue via-brand-600 to-python-gold p-1 shadow-lg shadow-brand-500/20">
             <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
               <TierIcon className={`w-10 h-10 ${tier.color}`} />
             </div>
           </div>
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-800/50 mb-1.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-50 dark:bg-brand-900/30 text-python-blue dark:text-python-blue-light border border-brand-200/50 dark:border-brand-800/50 mb-1.5">
               Performance Report
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -174,7 +174,7 @@ export default function QuizResults({
             onClick={handleShare}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all active:scale-95 border border-slate-200 dark:border-slate-700 cursor-pointer"
           >
-            {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
+            {copied ? <Check className="w-4 h-4 text-success-500" /> : <Share2 className="w-4 h-4" />}
             <span>{copied ? 'Copied to Clipboard!' : 'Share Result'}</span>
           </button>
           <button
@@ -188,7 +188,7 @@ export default function QuizResults({
           <button
             type="button"
             onClick={onRetake}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/25 transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-python-blue hover:bg-brand-600 text-white shadow-md shadow-brand-500/25 transition-all active:scale-95 cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Retake Quiz</span>
@@ -199,22 +199,22 @@ export default function QuizResults({
       {/* ========================================================================= */}
       {/* AUTOMATIC SUBMISSION CONFIRMATION BANNER */}
       {/* ========================================================================= */}
-      <div className="my-6 p-4 sm:p-5 rounded-2xl bg-linear-to-r from-emerald-500/10 via-indigo-500/10 to-blue-500/10 border border-emerald-500/25 dark:border-emerald-500/35 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in shadow-xs">
+      <div className="my-6 p-4 sm:p-5 rounded-2xl bg-linear-to-r from-success-500/10 via-brand-500/10 to-python-blue/10 border border-success-500/25 dark:border-success-500/35 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in shadow-xs">
         <div className="flex items-start sm:items-center gap-3.5">
-          <div className="p-2.5 rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-500/25 shrink-0 mt-0.5 sm:mt-0">
+          <div className="p-2.5 rounded-xl bg-success-600 text-white shadow-md shadow-success-500/25 shrink-0 mt-0.5 sm:mt-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-success-700 dark:text-success-400">
                 Automatic Final Submission Dispatched
               </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-100/80 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300/50 dark:border-emerald-700/50">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-success-100/80 dark:bg-success-950/80 text-success-800 dark:text-success-300 border border-success-300/50 dark:border-success-700/50">
                 sk1420000@gmail.com
               </span>
             </div>
             <p className="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">
-              Every detail—all {totalQuestions} questions, chosen answers, correct answers, and topic breakdowns—has been automatically sent to <strong className="font-mono text-emerald-700 dark:text-emerald-300">sk1420000@gmail.com</strong> at final submit.
+              Every detail—all {totalQuestions} questions, chosen answers, correct answers, and topic breakdowns—has been automatically sent to <strong className="font-mono text-success-700 dark:text-success-300">sk1420000@gmail.com</strong> at final submit.
             </p>
             {autoEmailStatus && autoEmailStatus.status === 'preview' && (
               <p className="text-[11px] text-amber-700 dark:text-amber-300 mt-1">

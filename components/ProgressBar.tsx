@@ -25,19 +25,19 @@ export default function ProgressBar({
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-medium text-slate-600 dark:text-slate-400 mb-2.5">
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            <CheckCircle2 className="w-4 h-4 text-success-500" />
             {answeredCount} of {totalQuestions} Answered
           </span>
           {flaggedCount > 0 && (
-            <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
-              <Bookmark className="w-3 h-3 fill-amber-500" />
+            <span className="flex items-center gap-1 text-warning-600 dark:text-warning-400 font-semibold bg-warning-500/10 px-2 py-0.5 rounded-full border border-warning-500/20">
+              <Bookmark className="w-3 h-3 fill-warning-500" />
               {flaggedCount} Flagged
             </span>
           )}
         </div>
         <div className="flex items-center gap-3">
           {layout === 'single' && typeof currentIndex === 'number' && (
-            <span className="text-indigo-600 dark:text-indigo-400 font-mono font-bold bg-indigo-50 dark:bg-indigo-950/40 px-2.5 py-0.5 rounded-lg border border-indigo-200/50 dark:border-indigo-800/50">
+            <span className="text-python-blue dark:text-python-blue-light font-mono font-bold bg-brand-50 dark:bg-brand-900/30 px-2.5 py-0.5 rounded-lg border border-brand-200/50 dark:border-brand-800/50">
               Question {currentIndex + 1} / {totalQuestions}
             </span>
           )}
@@ -50,7 +50,7 @@ export default function ProgressBar({
       {/* Progress Track */}
       <div className="relative h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
         <div
-          className="h-full bg-linear-to-r from-blue-600 via-indigo-600 to-emerald-500 rounded-full transition-all duration-300 ease-out shadow-sm"
+          className="h-full bg-linear-to-r from-python-blue via-brand-600 to-success-500 rounded-full transition-all duration-300 ease-out shadow-sm"
           style={{ width: `${percentage}%` }}
         />
       </div>

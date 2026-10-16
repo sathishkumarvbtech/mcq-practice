@@ -440,7 +440,7 @@ export default function Quiz() {
                 setSelectedTopic('All');
                 setReviewFilter('all');
               }}
-              className="mt-3 px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 text-white"
+              className="mt-3 px-4 py-2 text-xs font-semibold rounded-xl bg-python-blue hover:bg-brand-600 text-white shadow-sm"
             >
               Reset Filters
             </button>
@@ -496,7 +496,7 @@ export default function Quiz() {
                 <button
                   type="button"
                   onClick={() => setShowSubmitModal(true)}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 transition-all active:scale-95"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-python-blue hover:bg-brand-600 text-white shadow-lg shadow-brand-500/25 transition-all active:scale-95 cursor-pointer"
                 >
                   <span>Submit Quiz</span>
                   <ArrowRight className="w-4 h-4" />
@@ -514,7 +514,7 @@ export default function Quiz() {
         title="Reset Quiz Progress?"
         description="Are you sure you want to clear your current progress?"
         variant="danger"
-        icon={<RotateCcw className="w-5 h-5 text-rose-500" />}
+        icon={<RotateCcw className="w-5 h-5 text-danger-500" />}
         confirmText="Yes, Reset Everything"
         cancelText="Cancel"
         onConfirm={handleConfirmReset}
@@ -523,7 +523,7 @@ export default function Quiz() {
           <p className="text-slate-600 dark:text-slate-300">
             This will permanently reset all your answers, flagged questions, and elapsed time back to zero.
           </p>
-          <div className="p-3.5 rounded-2xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/50 text-rose-700 dark:text-rose-400 text-xs">
+          <div className="p-3.5 rounded-2xl bg-danger-50/80 dark:bg-danger-950/30 border border-danger-200/60 dark:border-danger-900/50 text-danger-700 dark:text-danger-400 text-xs">
             ⚠️ You will restart from Question 1. This action cannot be undone.
           </div>
         </div>
@@ -536,7 +536,7 @@ export default function Quiz() {
         title="Submit Final Exam?"
         description="Check your status before finalizing your score."
         variant="warning"
-        icon={<AlertTriangle className="w-5 h-5 text-amber-500" />}
+        icon={<AlertTriangle className="w-5 h-5 text-warning-500" />}
         confirmText="Yes, Submit Now"
         cancelText="Keep Answering"
         onConfirm={handleConfirmSubmit}
@@ -546,36 +546,36 @@ export default function Quiz() {
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 space-y-2 text-xs">
             <div className="flex justify-between">
               <span className="text-slate-500 dark:text-slate-400">Answered Questions:</span>
-              <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">
+              <span className="font-bold font-mono text-success-600 dark:text-success-400">
                 {answeredCount} / {questions.length}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-500 dark:text-slate-400">Unanswered Questions:</span>
-              <span className="font-bold font-mono text-rose-500">
+              <span className="font-bold font-mono text-danger-500">
                 {questions.length - answeredCount}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-500 dark:text-slate-400">Flagged for Review:</span>
-              <span className="font-bold font-mono text-amber-500">{flagged.size}</span>
+              <span className="font-bold font-mono text-warning-500">{flagged.size}</span>
             </div>
           </div>
 
           {questions.length - answeredCount > 0 && (
-            <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+            <p className="text-xs text-warning-600 dark:text-warning-400 font-medium">
               ⚠️ You still have {questions.length - answeredCount} unanswered questions. Unanswered questions are marked incorrect.
             </p>
           )}
 
           {/* Automatic Delivery Notice */}
-          <div className="p-3.5 rounded-2xl bg-indigo-50/90 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-xs space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-indigo-700 dark:text-indigo-300">
-              <ShieldCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-brand-50/90 dark:bg-brand-900/30 border border-brand-200/50 dark:border-brand-800/50 text-xs space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-python-blue dark:text-python-blue-light">
+              <ShieldCheck className="w-4 h-4 text-python-blue dark:text-python-blue-light shrink-0" />
               <span>Automatic Results Delivery</span>
             </div>
             <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
-              When you finalize and submit, your complete performance report with all {questions.length} questions will be automatically sent to <strong className="font-mono text-indigo-600 dark:text-indigo-400">sk1420000@gmail.com</strong>.
+              When you finalize and submit, your complete performance report with all {questions.length} questions will be automatically sent to <strong className="font-mono text-python-blue dark:text-python-blue-light">sk1420000@gmail.com</strong>.
             </p>
           </div>
         </div>
