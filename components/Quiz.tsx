@@ -1,0 +1,595 @@
+'use client';
+
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { questions } from '../data/questions';
+import { QuizMode, ViewLayout, ReviewFilter } from '../types/quiz';
+import Header from './Header';
+import ProgressBar from './ProgressBar';
+import TopicFilter from './TopicFilter';
+import QuestionPalette from './QuestionPalette';
+import QuestionCard from './QuestionCard';
+import QuizResults from './QuizResults';
+import Modal from './Modal';
+import { playSelectSound, playCorrectSound, playIncorrectSound } from '../lib/sound';
+import { AlertTriangle, ArrowRight, ShieldCheck, RotateCcw } from 'lucide-react';
+
+const STORAGE_KEY = 'python_mcq_state_v2';
+
+export default function Quiz() {
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [flagged, setFlagged] = useState<Set<string>>(new Set());
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [mode, setMode] = useState<QuizMode>('practice');
+  const [layout, setLayout] = useState<ViewLayout>('single');
+  const [selectedTopic, setSelectedTopic] = useState<string>('All');
+  const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
+  const [timerSeconds, setTimerSeconds] = useState<number>(0);
+  const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
+  const [showResetModal, setShowResetModal] = useState<boolean>(false);
+  const [autoEmailStatus, setAutoEmailStatus] = useState<{
+    status: 'idle' | 'sending' | 'success' | 'preview' | 'error';
+    message: string;
+    recipient: string;
+  }>({
+    status: 'idle',
+    message: '',
+    recipient: 'sk1420000@gmail.com',
+  });
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  // Load state from localStorage on initial render
+  useEffect(() => {
+    setMounted(true);
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.answers) setAnswers(parsed.answers);
+        if (parsed.submitted) setSubmitted(parsed.submitted);
+        if (parsed.flagged) setFlagged(new Set(parsed.flagged));
+        if (parsed.mode) setMode(parsed.mode);
+        if (parsed.layout) setLayout(parsed.layout);
+        if (parsed.timerSeconds) setTimerSeconds(parsed.timerSeconds);
+        if (parsed.isMuted !== undefined) setIsMuted(parsed.isMuted);
+      }
+    } catch {
+      // Ignore storage error
+    }
+  }, []);
+
+  // Sync state to localStorage
+  useEffect(() => {
+    if (!mounted) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          answers,
+          submitted,
+          flagged: Array.from(flagged),
+          mode,
+          layout,
+          timerSeconds,
+          isMuted,
+        })
+      );
+    } catch {
+      // Ignore storage error
+    }
+  }, [answers, submitted, flagged, mode, layout, timerSeconds, isMuted, mounted]);
+
+  // Stopwatch timer
+  useEffect(() => {
+    if (!isTimerRunning || submitted) return;
+    const interval = setInterval(() => {
+      setTimerSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isTimerRunning, submitted]);
+
+  // Unique topics
+  const topics = useMemo(() => {
+    const set = new Set<string>();
+    questions.forEach((q) => set.add(q.topic));
+    return Array.from(set);
+  }, []);
+
+  // Topic counts
+  const topicCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: questions.length };
+    questions.forEach((q) => {
+      counts[q.topic] = (counts[q.topic] || 0) + 1;
+    });
+    return counts;
+  }, []);
+
+  // Filtered questions based on selected topic and (if submitted) reviewFilter
+  const displayQuestions = useMemo(() => {
+    return questions.filter((q) => {
+      // Topic filter check
+      if (selectedTopic !== 'All' && q.topic !== selectedTopic) {
+        return false;
+      }
+      // Review filter check after submission
+      if (submitted) {
+        if (reviewFilter === 'incorrect') {
+          return answers[q.id] !== q.correctIndex;
+        }
+        if (reviewFilter === 'flagged') {
+          return flagged.has(q.id);
+        }
+      }
+      return true;
+    });
+  }, [selectedTopic, submitted, reviewFilter, answers, flagged]);
+
+  // Answered count across all 25 questions
+  const answeredCount = useMemo(() => Object.keys(answers).length, [answers]);
+
+  // Ensure currentIndex stays within bounds when displayQuestions change
+  useEffect(() => {
+    if (currentIndex >= displayQuestions.length) {
+      setCurrentIndex(Math.max(0, displayQuestions.length - 1));
+    }
+  }, [displayQuestions.length, currentIndex]);
+
+  // Answer selection handler
+  const handleSelectOption = useCallback(
+    (questionId: string, optionIndex: number) => {
+      if (submitted) return;
+
+      const q = questions.find((item) => item.id === questionId);
+      if (!q) return;
+
+      setAnswers((prev) => ({ ...prev, [questionId]: optionIndex }));
+
+      if (mode === 'practice') {
+        if (optionIndex === q.correctIndex) {
+          playCorrectSound(isMuted);
+        } else {
+          playIncorrectSound(isMuted);
+        }
+      } else {
+        playSelectSound(isMuted);
+      }
+    },
+    [submitted, mode, isMuted]
+  );
+
+  // Toggle flag
+  const handleToggleFlag = useCallback((questionId: string) => {
+    setFlagged((prev) => {
+      const next = new Set(prev);
+      if (next.has(questionId)) {
+        next.delete(questionId);
+      } else {
+        next.add(questionId);
+      }
+      return next;
+    });
+  }, []);
+
+  // Submit quiz - Automatically sends every detail to sk1420000@gmail.com
+  const handleConfirmSubmit = useCallback(() => {
+    setSubmitted(true);
+    setShowSubmitModal(false);
+    setLayout('list');
+
+    // Calculate score & statistics for all questions
+    const score = questions.reduce(
+      (acc, q) => acc + (answers[q.id] === q.correctIndex ? 1 : 0),
+      0
+    );
+    const percentage = Math.round((score / questions.length) * 100);
+    const tierTitle =
+      percentage === 100
+        ? 'Python Grandmaster'
+        : percentage >= 85
+        ? 'Python Expert'
+        : percentage >= 70
+        ? 'Proficient Developer'
+        : percentage >= 50
+        ? 'Apprentice Coder'
+        : 'Getting Started';
+
+    const statsMap: Record<
+      string,
+      { topic: string; total: number; answered: number; correct: number; percentage: number }
+    > = {};
+    questions.forEach((q) => {
+      if (!statsMap[q.topic]) {
+        statsMap[q.topic] = { topic: q.topic, total: 0, answered: 0, correct: 0, percentage: 0 };
+      }
+      const s = statsMap[q.topic];
+      s.total += 1;
+      if (answers[q.id] !== undefined) {
+        s.answered += 1;
+        if (answers[q.id] === q.correctIndex) s.correct += 1;
+      }
+    });
+    Object.values(statsMap).forEach((s) => {
+      s.percentage = Math.round((s.correct / s.total) * 100);
+    });
+
+    const questionResults = questions.map((q) => {
+      const userAns = answers[q.id];
+      return {
+        id: q.id,
+        topic: q.topic,
+        question: q.question,
+        userAnswerIndex: userAns !== undefined ? userAns : null,
+        userAnswerText: userAns !== undefined ? q.options[userAns] : 'Not Answered',
+        correctAnswerIndex: q.correctIndex,
+        correctAnswerText: q.options[q.correctIndex],
+        isCorrect: userAns === q.correctIndex,
+        explanation: q.explanation,
+      };
+    });
+
+    // Automatically send to sk1420000@gmail.com
+    setAutoEmailStatus({
+      status: 'sending',
+      message: `Automatically sending final result with all ${questions.length} questions to sk1420000@gmail.com...`,
+      recipient: 'sk1420000@gmail.com',
+    });
+
+    fetch('/api/send-result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        score,
+        totalQuestions: questions.length,
+        percentage,
+        timeSpentSeconds: timerSeconds,
+        tierTitle,
+        mode,
+        topicStats: Object.values(statsMap),
+        questionResults,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setAutoEmailStatus({
+            status: data.preview ? 'preview' : 'success',
+            message: data.message || 'Result successfully sent to sk1420000@gmail.com!',
+            recipient: data.recipient || 'sk1420000@gmail.com',
+          });
+        } else {
+          setAutoEmailStatus({
+            status: 'error',
+            message: data.error || 'Failed to dispatch email',
+            recipient: 'sk1420000@gmail.com',
+          });
+        }
+      })
+      .catch((err) => {
+        setAutoEmailStatus({
+          status: 'error',
+          message: err instanceof Error ? err.message : 'Network error',
+          recipient: 'sk1420000@gmail.com',
+        });
+      });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [answers, timerSeconds, mode]);
+
+  // Open reset modal (no window.confirm alert)
+  const handleOpenResetModal = useCallback(() => {
+    setShowResetModal(true);
+  }, []);
+
+  // Confirm reset quiz
+  const handleConfirmReset = useCallback(() => {
+    setAnswers({});
+    setSubmitted(false);
+    setFlagged(new Set());
+    setCurrentIndex(0);
+    setTimerSeconds(0);
+    setIsTimerRunning(true);
+    setReviewFilter('all');
+    setSelectedTopic('All');
+    setShowResetModal(false);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Ignore
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if typing in an input
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+
+      const currentQ = displayQuestions[currentIndex];
+      if (!currentQ) return;
+
+      // Numbers 1-4 or letters A-D to select option
+      const key = e.key.toUpperCase();
+      if (['1', '2', '3', '4'].includes(key)) {
+        const optIdx = parseInt(key, 10) - 1;
+        if (optIdx < currentQ.options.length) {
+          handleSelectOption(currentQ.id, optIdx);
+        }
+      } else if (['A', 'B', 'C', 'D'].includes(key)) {
+        const optIdx = key.charCodeAt(0) - 65;
+        if (optIdx < currentQ.options.length) {
+          handleSelectOption(currentQ.id, optIdx);
+        }
+      } else if (key === 'F') {
+        handleToggleFlag(currentQ.id);
+      } else if (e.key === 'ArrowRight' || e.key === 'j') {
+        if (currentIndex < displayQuestions.length - 1) {
+          setCurrentIndex((prev) => prev + 1);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'k') {
+        if (currentIndex > 0) {
+          setCurrentIndex((prev) => prev - 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, displayQuestions, handleSelectOption, handleToggleFlag]);
+
+  const activeQuestion = displayQuestions[currentIndex];
+
+  if (!mounted) {
+    return <div className="min-h-screen bg-slate-50 dark:bg-slate-950" />;
+  }
+
+  return (
+    <div className="min-h-screen bg-linear-to-b from-slate-50 via-slate-100/50 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 transition-colors">
+      {/* Top Header */}
+      <Header
+        mode={mode}
+        onModeChange={(newMode) => setMode(newMode)}
+        layout={layout}
+        onLayoutChange={(newLayout) => setLayout(newLayout)}
+        isMuted={isMuted}
+        onToggleMute={() => setIsMuted((prev) => !prev)}
+        timerSeconds={timerSeconds}
+        isTimerRunning={isTimerRunning}
+        onToggleTimer={() => setIsTimerRunning((prev) => !prev)}
+        onResetQuiz={handleOpenResetModal}
+        answeredCount={answeredCount}
+        totalQuestions={questions.length}
+      />
+
+      <main className="max-w-4xl mx-auto px-4 py-8 sm:px-6">
+        {/* Results Banner when submitted */}
+        {submitted && (
+          <QuizResults
+            questions={questions}
+            answers={answers}
+            flagged={flagged}
+            timeSpentSeconds={timerSeconds}
+            reviewFilter={reviewFilter}
+            onSetReviewFilter={(f) => setReviewFilter(f)}
+            onRetake={handleOpenResetModal}
+            isMuted={isMuted}
+            mode={mode}
+            autoEmailStatus={autoEmailStatus}
+          />
+        )}
+
+        {/* Global Progress Bar */}
+        <ProgressBar
+          answeredCount={answeredCount}
+          totalQuestions={questions.length}
+          flaggedCount={flagged.size}
+          currentIndex={layout === 'single' ? currentIndex : undefined}
+          layout={layout}
+        />
+
+        {/* Topic Filter Chips */}
+        <TopicFilter
+          topics={topics}
+          selectedTopic={selectedTopic}
+          onSelectTopic={(t) => {
+            setSelectedTopic(t);
+            setCurrentIndex(0);
+          }}
+          topicCounts={topicCounts}
+        />
+
+        {/* Question Palette Matrix */}
+        <QuestionPalette
+          questions={questions}
+          answers={answers}
+          flagged={flagged}
+          currentIndex={
+            layout === 'single' && activeQuestion
+              ? questions.findIndex((q) => q.id === activeQuestion.id)
+              : -1
+          }
+          onSelectQuestion={(idx) => {
+            const targetQuestion = questions[idx];
+            if (selectedTopic !== 'All' && targetQuestion.topic !== selectedTopic) {
+              setSelectedTopic('All');
+            }
+            const displayIdx = displayQuestions.findIndex((q) => q.id === targetQuestion.id);
+            if (displayIdx !== -1) {
+              setCurrentIndex(displayIdx);
+            }
+            if (layout === 'list') {
+              const el = document.getElementById(`question-${targetQuestion.id}`);
+              el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }}
+          submitted={submitted}
+          mode={mode}
+        />
+
+        {/* Questions Display */}
+        {displayQuestions.length === 0 ? (
+          <div className="text-center py-12 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8">
+            <p className="text-slate-500 dark:text-slate-400 font-medium">
+              No questions found for the selected filter.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedTopic('All');
+                setReviewFilter('all');
+              }}
+              className="mt-3 px-4 py-2 text-xs font-semibold rounded-xl bg-indigo-600 text-white"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : layout === 'single' && !submitted ? (
+          /* Single Question Stepper View */
+          activeQuestion && (
+            <QuestionCard
+              key={activeQuestion.id}
+              question={activeQuestion}
+              index={currentIndex}
+              totalCount={displayQuestions.length}
+              selectedOption={answers[activeQuestion.id]}
+              isFlagged={flagged.has(activeQuestion.id)}
+              onSelectOption={(opt) => handleSelectOption(activeQuestion.id, opt)}
+              onToggleFlag={() => handleToggleFlag(activeQuestion.id)}
+              submitted={submitted}
+              mode={mode}
+              layout="single"
+              onNext={() => setCurrentIndex((prev) => Math.min(prev + 1, displayQuestions.length - 1))}
+              onPrev={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+              isFirst={currentIndex === 0}
+              isLast={currentIndex === displayQuestions.length - 1}
+              onSubmitQuiz={() => setShowSubmitModal(true)}
+            />
+          )
+        ) : (
+          /* List View (or Submitted Review Mode) */
+          <div className="space-y-6">
+            {displayQuestions.map((q, idx) => (
+              <QuestionCard
+                key={q.id}
+                question={q}
+                index={idx}
+                totalCount={displayQuestions.length}
+                selectedOption={answers[q.id]}
+                isFlagged={flagged.has(q.id)}
+                onSelectOption={(opt) => handleSelectOption(q.id, opt)}
+                onToggleFlag={() => handleToggleFlag(q.id)}
+                submitted={submitted}
+                mode={mode}
+                layout="list"
+              />
+            ))}
+
+            {/* List View Submit Button */}
+            {!submitted && (
+              <div className="sticky bottom-6 z-20 flex items-center justify-between gap-4 p-4 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/90 shadow-xl">
+                <div className="text-xs text-slate-600 dark:text-slate-400">
+                  <span className="font-bold text-slate-900 dark:text-white">{answeredCount}</span> of{' '}
+                  <span className="font-bold text-slate-900 dark:text-white">{questions.length}</span> questions answered
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowSubmitModal(true)}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/25 transition-all active:scale-95"
+                >
+                  <span>Submit Quiz</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+
+      {/* Common Modal for Resetting Quiz */}
+      <Modal
+        isOpen={showResetModal}
+        onClose={() => setShowResetModal(false)}
+        title="Reset Quiz Progress?"
+        description="Are you sure you want to clear your current progress?"
+        variant="danger"
+        icon={<RotateCcw className="w-5 h-5 text-rose-500" />}
+        confirmText="Yes, Reset Everything"
+        cancelText="Cancel"
+        onConfirm={handleConfirmReset}
+      >
+        <div className="space-y-3">
+          <p className="text-slate-600 dark:text-slate-300">
+            This will permanently reset all your answers, flagged questions, and elapsed time back to zero.
+          </p>
+          <div className="p-3.5 rounded-2xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/50 text-rose-700 dark:text-rose-400 text-xs">
+            ⚠️ You will restart from Question 1. This action cannot be undone.
+          </div>
+        </div>
+      </Modal>
+
+      {/* Common Modal for Exam Submission */}
+      <Modal
+        isOpen={showSubmitModal}
+        onClose={() => setShowSubmitModal(false)}
+        title="Submit Final Exam?"
+        description="Check your status before finalizing your score."
+        variant="warning"
+        icon={<AlertTriangle className="w-5 h-5 text-amber-500" />}
+        confirmText="Yes, Submit Now"
+        cancelText="Keep Answering"
+        onConfirm={handleConfirmSubmit}
+        maxWidth="md"
+      >
+        <div className="space-y-3.5">
+          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 space-y-2 text-xs">
+            <div className="flex justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Answered Questions:</span>
+              <span className="font-bold font-mono text-emerald-600 dark:text-emerald-400">
+                {answeredCount} / {questions.length}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Unanswered Questions:</span>
+              <span className="font-bold font-mono text-rose-500">
+                {questions.length - answeredCount}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500 dark:text-slate-400">Flagged for Review:</span>
+              <span className="font-bold font-mono text-amber-500">{flagged.size}</span>
+            </div>
+          </div>
+
+          {questions.length - answeredCount > 0 && (
+            <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+              ⚠️ You still have {questions.length - answeredCount} unanswered questions. Unanswered questions are marked incorrect.
+            </p>
+          )}
+
+          {/* Automatic Delivery Notice */}
+          <div className="p-3.5 rounded-2xl bg-indigo-50/90 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-xs space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-indigo-700 dark:text-indigo-300">
+              <ShieldCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+              <span>Automatic Results Delivery</span>
+            </div>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+              When you finalize and submit, your complete performance report with all {questions.length} questions will be automatically sent to <strong className="font-mono text-indigo-600 dark:text-indigo-400">sk1420000@gmail.com</strong>.
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Footer */}
+      <footer className="mt-16 border-t border-slate-200/80 dark:border-slate-800/80 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p className="flex items-center justify-center gap-1.5 font-medium">
+          🐍 Python Basics MCQ Quiz · Built with Next.js & React 19
+        </p>
+        <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
+          Keyboard navigation enabled · Press [1-4] or [A-D] to select, [F] to flag, [J/K] or Arrow Keys to navigate
+        </p>
+      </footer>
+    </div>
+  );
+}
