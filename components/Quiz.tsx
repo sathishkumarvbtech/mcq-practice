@@ -11,7 +11,7 @@ import QuestionCard from './QuestionCard';
 import QuizResults from './QuizResults';
 import Modal from './Modal';
 import { playSelectSound, playCorrectSound, playIncorrectSound } from '../lib/sound';
-import { AlertTriangle, ArrowRight, ShieldCheck, RotateCcw } from 'lucide-react';
+import { AlertTriangle, ArrowRight, RotateCcw } from 'lucide-react';
 
 const STORAGE_KEY = 'python_mcq_state_v2';
 
@@ -29,15 +29,6 @@ export default function Quiz() {
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
   const [showResetModal, setShowResetModal] = useState<boolean>(false);
-  const [autoEmailStatus, setAutoEmailStatus] = useState<{
-    status: 'idle' | 'sending' | 'success' | 'preview' | 'error';
-    message: string;
-    recipient: string;
-  }>({
-    status: 'idle',
-    message: '',
-    recipient: 'sk1420000@gmail.com',
-  });
   const [mounted, setMounted] = useState<boolean>(false);
 
   // Load state from localStorage on initial render
@@ -172,110 +163,13 @@ export default function Quiz() {
     });
   }, []);
 
-  // Submit quiz - Automatically sends every detail to sk1420000@gmail.com
+  // Submit quiz - display results immediately on screen
   const handleConfirmSubmit = useCallback(() => {
     setSubmitted(true);
     setShowSubmitModal(false);
     setLayout('list');
-
-    // Calculate score & statistics for all questions
-    const score = questions.reduce(
-      (acc, q) => acc + (answers[q.id] === q.correctIndex ? 1 : 0),
-      0
-    );
-    const percentage = Math.round((score / questions.length) * 100);
-    const tierTitle =
-      percentage === 100
-        ? 'Python Grandmaster'
-        : percentage >= 85
-        ? 'Python Expert'
-        : percentage >= 70
-        ? 'Proficient Developer'
-        : percentage >= 50
-        ? 'Apprentice Coder'
-        : 'Getting Started';
-
-    const statsMap: Record<
-      string,
-      { topic: string; total: number; answered: number; correct: number; percentage: number }
-    > = {};
-    questions.forEach((q) => {
-      if (!statsMap[q.topic]) {
-        statsMap[q.topic] = { topic: q.topic, total: 0, answered: 0, correct: 0, percentage: 0 };
-      }
-      const s = statsMap[q.topic];
-      s.total += 1;
-      if (answers[q.id] !== undefined) {
-        s.answered += 1;
-        if (answers[q.id] === q.correctIndex) s.correct += 1;
-      }
-    });
-    Object.values(statsMap).forEach((s) => {
-      s.percentage = Math.round((s.correct / s.total) * 100);
-    });
-
-    const questionResults = questions.map((q) => {
-      const userAns = answers[q.id];
-      return {
-        id: q.id,
-        topic: q.topic,
-        question: q.question,
-        userAnswerIndex: userAns !== undefined ? userAns : null,
-        userAnswerText: userAns !== undefined ? q.options[userAns] : 'Not Answered',
-        correctAnswerIndex: q.correctIndex,
-        correctAnswerText: q.options[q.correctIndex],
-        isCorrect: userAns === q.correctIndex,
-        explanation: q.explanation,
-      };
-    });
-
-    // Automatically send to sk1420000@gmail.com
-    setAutoEmailStatus({
-      status: 'sending',
-      message: `Automatically sending final result with all ${questions.length} questions to sk1420000@gmail.com...`,
-      recipient: 'sk1420000@gmail.com',
-    });
-
-    fetch('/api/send-result', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        score,
-        totalQuestions: questions.length,
-        percentage,
-        timeSpentSeconds: timerSeconds,
-        tierTitle,
-        mode,
-        topicStats: Object.values(statsMap),
-        questionResults,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setAutoEmailStatus({
-            status: data.preview ? 'preview' : 'success',
-            message: data.message || 'Result successfully sent to sk1420000@gmail.com!',
-            recipient: data.recipient || 'sk1420000@gmail.com',
-          });
-        } else {
-          setAutoEmailStatus({
-            status: 'error',
-            message: data.error || 'Failed to dispatch email',
-            recipient: 'sk1420000@gmail.com',
-          });
-        }
-      })
-      .catch((err) => {
-        setAutoEmailStatus({
-          status: 'error',
-          message: err instanceof Error ? err.message : 'Network error',
-          recipient: 'sk1420000@gmail.com',
-        });
-      });
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [answers, timerSeconds, mode]);
+  }, []);
 
   // Open reset modal (no window.confirm alert)
   const handleOpenResetModal = useCallback(() => {
@@ -376,7 +270,6 @@ export default function Quiz() {
             onRetake={handleOpenResetModal}
             isMuted={isMuted}
             mode={mode}
-            autoEmailStatus={autoEmailStatus}
           />
         )}
 
@@ -567,17 +460,6 @@ export default function Quiz() {
               ⚠️ You still have {questions.length - answeredCount} unanswered questions. Unanswered questions are marked incorrect.
             </p>
           )}
-
-          {/* Automatic Delivery Notice */}
-          <div className="p-3.5 rounded-2xl bg-brand-50/90 dark:bg-brand-900/30 border border-brand-200/50 dark:border-brand-800/50 text-xs space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-python-blue dark:text-python-blue-light">
-              <ShieldCheck className="w-4 h-4 text-python-blue dark:text-python-blue-light shrink-0" />
-              <span>Automatic Results Delivery</span>
-            </div>
-            <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
-              When you finalize and submit, your complete performance report with all {questions.length} questions will be automatically sent to <strong className="font-mono text-python-blue dark:text-python-blue-light">sk1420000@gmail.com</strong>.
-            </p>
-          </div>
         </div>
       </Modal>
 

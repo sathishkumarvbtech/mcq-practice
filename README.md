@@ -13,35 +13,25 @@ A high-performance, modern Next.js 15 + React 19 + Tailwind CSS v4 application f
   - Python Casting & Coercion (Base conversions, Boolean conversions, Floats)
   - Python Strings (Step slicing, find vs index, split defaults, raw strings, intern)
   - Python Booleans & Logic (Short-circuiting operands, Boolean arithmetic, Custom __bool__)
-- **Automated Scorecard Delivery**: Candidate results are automatically dispatched to `sk1420000@gmail.com` with a full audit of all 50 questions upon final submission. Zero email prompt friction.
-- **Configurable Environment**: Supports `.env.local` for SMTP (Gmail, Outlook, SendGrid, Mailtrap) with instant preview mode fallback.
+- **Instant On-Screen Results**: Immediate performance report display upon submission with zero delays or external email setup required.
+- **Detailed Analytics**:
+  - Total score, accuracy rate, error tally, and time taken metrics.
+  - Interactive topic-by-topic mastery breakdown with visual progress meters.
+  - Comprehensive question-by-question review with filters for *All*, *Mistakes Only*, and *Flagged Items*.
+  - Full conceptual explanations and correct answer highlights.
+  - Shareable clipboard results and print-ready report stylesheets.
+- **Predefined Design System**:
+  - Official Python palette (`python-blue`, `python-gold`, `brand`, `success`, `danger`, `warning`) defined via Tailwind v4 `@theme`.
 - **Modern Segmented Theme Toggle**: Silky-smooth Light & Dark theme toggle with tactile audio cues and Tailwind v4 support.
 - **Accessible Modal System**: Reusable, animated common modal dialogs for resets and exam submission confirmations.
 - **Practice & Exam Modes**: Instant feedback mode with sound effects or timed exam mode with review palette.
-- **Detailed Analytics**: Topic-by-topic mastery breakdown, filtered mistakes review, and printable certificates.
-
-## Environment Setup (.env.local)
-Copy `.env.example` to `.env.local`:
-```bash
-cp .env.example .env.local
-```
-Fill in your SMTP server credentials:
-```env
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-google-app-password
-SMTP_FROM="Python MCQ Arena <noreply@mcqarena.com>"
-```
-*(If left blank, the app runs in built-in simulated preview mode).*
 
 ## Run Locally
 ```bash
 npm install
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) or [http://localhost:3001](http://localhost:3001).
 
 ## Build for Production
 ```bash
