@@ -76,13 +76,13 @@ export default function ThemeToggle({
         onClick={handleToggle}
         type="button"
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        className={`relative flex items-center justify-center w-9 h-9 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-indigo-400 hover:border-amber-400/50 dark:hover:border-indigo-400/50 transition-all duration-200 shadow-sm active:scale-95 ${className}`}
+        className={`relative flex items-center justify-center w-9 h-9 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-600 dark:text-slate-300 hover:text-python-gold-dark dark:hover:text-python-blue-light hover:border-python-gold/50 dark:hover:border-python-blue-light/50 transition-all duration-200 shadow-sm active:scale-95 ${className}`}
         title={`Current: ${theme.toUpperCase()} mode · Click to switch`}
       >
         {theme === 'dark' ? (
-          <Moon className="w-4 h-4 text-indigo-400 transition-transform duration-300 rotate-0 hover:-rotate-12" />
+          <Moon className="w-4 h-4 text-python-blue-light transition-transform duration-300 rotate-0 hover:-rotate-12" />
         ) : (
-          <Sun className="w-4 h-4 text-amber-500 transition-transform duration-300 rotate-0 hover:rotate-45" />
+          <Sun className="w-4 h-4 text-python-gold-dark transition-transform duration-300 rotate-0 hover:rotate-45" />
         )}
       </button>
     );
@@ -103,13 +103,13 @@ export default function ThemeToggle({
         title="Switch to Light Theme"
         className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
           theme === 'light'
-            ? 'bg-white text-amber-600 shadow-sm scale-100 font-bold'
+            ? 'bg-white text-python-gold-dark shadow-sm scale-100 font-bold'
             : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
         }`}
       >
         <Sun
           className={`w-3.5 h-3.5 transition-transform duration-300 ${
-            theme === 'light' ? 'text-amber-500 rotate-0 scale-110' : 'text-slate-400 rotate-45'
+            theme === 'light' ? 'text-python-gold-dark rotate-0 scale-110' : 'text-slate-400 rotate-45'
           }`}
         />
         <span className="hidden sm:inline text-[11px]">Light</span>
@@ -123,13 +123,13 @@ export default function ThemeToggle({
         title="Switch to Dark Theme"
         className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
           theme === 'dark'
-            ? 'bg-slate-800 text-indigo-400 shadow-sm scale-100 font-bold'
+            ? 'bg-slate-800 text-python-blue-light shadow-sm scale-100 font-bold'
             : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
         }`}
       >
         <Moon
           className={`w-3.5 h-3.5 transition-transform duration-300 ${
-            theme === 'dark' ? 'text-indigo-400 -rotate-12 scale-110' : 'text-slate-400 rotate-0'
+            theme === 'dark' ? 'text-python-blue-light -rotate-12 scale-110' : 'text-slate-400 rotate-0'
           }`}
         />
         <span className="hidden sm:inline text-[11px]">Dark</span>

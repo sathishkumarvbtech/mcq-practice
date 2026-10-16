@@ -79,28 +79,28 @@ export default function Modal({
   // Variant accent styles
   const variantStyles = {
     danger: {
-      badgeBg: 'bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400',
-      confirmBtn: 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-500/25',
-      defaultIcon: <AlertCircle className="w-5 h-5 text-rose-500" />,
+      badgeBg: 'bg-danger-500/10 dark:bg-danger-500/20 text-danger-600 dark:text-danger-400',
+      confirmBtn: 'bg-danger-600 hover:bg-danger-500 text-white shadow-danger-500/25',
+      defaultIcon: <AlertCircle className="w-5 h-5 text-danger-500" />,
     },
     warning: {
-      badgeBg: 'bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400',
-      confirmBtn: 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-500/25',
-      defaultIcon: <AlertTriangle className="w-5 h-5 text-amber-500" />,
+      badgeBg: 'bg-warning-500/10 dark:bg-warning-500/20 text-warning-600 dark:text-warning-400',
+      confirmBtn: 'bg-warning-600 hover:bg-warning-500 text-white shadow-warning-500/25',
+      defaultIcon: <AlertTriangle className="w-5 h-5 text-warning-500" />,
     },
     info: {
-      badgeBg: 'bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400',
-      confirmBtn: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/25',
-      defaultIcon: <Info className="w-5 h-5 text-indigo-500" />,
+      badgeBg: 'bg-brand-500/10 dark:bg-brand-500/20 text-brand-600 dark:text-brand-300',
+      confirmBtn: 'bg-python-blue hover:bg-brand-600 text-white shadow-brand-500/25',
+      defaultIcon: <Info className="w-5 h-5 text-python-blue dark:text-python-blue-light" />,
     },
     success: {
-      badgeBg: 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400',
-      confirmBtn: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/25',
-      defaultIcon: <CheckCircle2 className="w-5 h-5 text-emerald-500" />,
+      badgeBg: 'bg-success-500/10 dark:bg-success-500/20 text-success-600 dark:text-success-400',
+      confirmBtn: 'bg-success-600 hover:bg-success-500 text-white shadow-success-500/25',
+      defaultIcon: <CheckCircle2 className="w-5 h-5 text-success-500" />,
     },
     default: {
       badgeBg: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300',
-      confirmBtn: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/25',
+      confirmBtn: 'bg-python-blue hover:bg-brand-600 text-white shadow-brand-500/25',
       defaultIcon: null,
     },
   }[variant];

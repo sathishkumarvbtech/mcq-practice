@@ -35,8 +35,8 @@ export default function FormattedText({ text, isTitle = false }: FormattedTextPr
               key={index}
               className={`font-mono font-semibold px-2 py-0.5 mx-1 rounded-md transition-colors ${
                 isTitle
-                  ? 'bg-amber-500/10 dark:bg-amber-400/15 text-amber-600 dark:text-amber-300 border border-amber-500/20'
-                  : 'bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700'
+                  ? 'bg-python-gold/15 dark:bg-python-gold/20 text-python-gold-dark dark:text-python-gold border border-python-gold/30'
+                  : 'bg-brand-50 dark:bg-brand-950/40 text-python-blue dark:text-python-blue-light border border-brand-200/60 dark:border-brand-800/60'
               }`}
             >
               {cleanCode}

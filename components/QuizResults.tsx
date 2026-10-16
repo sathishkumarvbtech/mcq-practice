@@ -107,10 +107,10 @@ export default function QuizResults({
   }, [questions, answers]);
 
   const getTier = () => {
-    if (percentage === 100) return { title: 'Python Grandmaster', icon: Trophy, color: 'text-amber-500' };
-    if (percentage >= 85) return { title: 'Python Expert', icon: Award, color: 'text-indigo-500' };
-    if (percentage >= 70) return { title: 'Proficient Developer', icon: CheckCircle2, color: 'text-emerald-500' };
-    if (percentage >= 50) return { title: 'Apprentice Coder', icon: BarChart3, color: 'text-blue-500' };
+    if (percentage === 100) return { title: 'Python Grandmaster', icon: Trophy, color: 'text-python-gold' };
+    if (percentage >= 85) return { title: 'Python Expert', icon: Award, color: 'text-python-blue-light' };
+    if (percentage >= 70) return { title: 'Proficient Developer', icon: CheckCircle2, color: 'text-success-500' };
+    if (percentage >= 50) return { title: 'Apprentice Coder', icon: BarChart3, color: 'text-python-blue' };
     return { title: 'Getting Started', icon: BookOpenIcon, color: 'text-slate-500' };
   };
 
@@ -197,32 +197,32 @@ export default function QuizResults({
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/50">
-          <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+        <div className="p-4 rounded-2xl bg-success-50/60 dark:bg-success-950/30 border border-success-200/80 dark:border-success-800/50">
+          <span className="text-xs font-medium text-success-700 dark:text-success-400 flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5" />
             Accuracy Rate
           </span>
-          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-emerald-700 dark:text-emerald-300 font-mono">
+          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-success-700 dark:text-success-300 font-mono">
             {percentage}%
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/80 dark:border-rose-800/50">
-          <span className="text-xs font-medium text-rose-700 dark:text-rose-400 flex items-center gap-1">
+        <div className="p-4 rounded-2xl bg-danger-50/60 dark:bg-danger-950/30 border border-danger-200/80 dark:border-danger-800/50">
+          <span className="text-xs font-medium text-danger-700 dark:text-danger-400 flex items-center gap-1">
             <XCircle className="w-3.5 h-3.5" />
             Incorrect Answers
           </span>
-          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-rose-700 dark:text-rose-300 font-mono">
+          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-danger-700 dark:text-danger-300 font-mono">
             {incorrectCount}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200/80 dark:border-indigo-800/50">
-          <span className="text-xs font-medium text-indigo-700 dark:text-indigo-400 flex items-center gap-1">
+        <div className="p-4 rounded-2xl bg-brand-50/60 dark:bg-brand-950/30 border border-brand-200/80 dark:border-brand-800/50">
+          <span className="text-xs font-medium text-brand-700 dark:text-brand-300 flex items-center gap-1">
             <Clock className="w-3.5 h-3.5" />
             Time Taken
           </span>
-          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-indigo-700 dark:text-indigo-300 font-mono">
+          <div className="mt-1 text-2xl sm:text-3xl font-extrabold text-brand-700 dark:text-brand-300 font-mono">
             {formatTime(timeSpentSeconds)}
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function QuizResults({
       {/* Topic Mastery Breakdown */}
       <div className="mb-8">
         <h3 className="text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
-          <BarChart3 className="w-4 h-4 text-indigo-500" />
+          <BarChart3 className="w-4 h-4 text-python-blue dark:text-python-blue-light" />
           Topic Mastery Breakdown ({Object.keys(topicStats).length} Topics)
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -248,10 +248,10 @@ export default function QuizResults({
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     stat.percentage >= 80
-                      ? 'bg-emerald-500'
+                      ? 'bg-success-500'
                       : stat.percentage >= 50
-                      ? 'bg-amber-500'
-                      : 'bg-rose-500'
+                      ? 'bg-warning-500'
+                      : 'bg-danger-500'
                   }`}
                   style={{ width: `${stat.percentage}%` }}
                 />
@@ -264,7 +264,7 @@ export default function QuizResults({
       {/* Review Filter Navigation Bar */}
       <div className="flex items-center justify-between gap-3 pt-6 border-t border-slate-100 dark:border-slate-800 flex-wrap">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          <Filter className="w-3.5 h-3.5 text-indigo-500" />
+          <Filter className="w-3.5 h-3.5 text-python-blue dark:text-python-blue-light" />
           <span>Review Mode</span>
         </div>
         <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
@@ -273,7 +273,7 @@ export default function QuizResults({
             onClick={() => onSetReviewFilter('all')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               reviewFilter === 'all'
-                ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                ? 'bg-white dark:bg-slate-900 text-python-blue dark:text-python-blue-light shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -284,7 +284,7 @@ export default function QuizResults({
             onClick={() => onSetReviewFilter('incorrect')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               reviewFilter === 'incorrect'
-                ? 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-sm'
+                ? 'bg-white dark:bg-slate-900 text-danger-600 dark:text-danger-400 shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
@@ -295,11 +295,11 @@ export default function QuizResults({
             onClick={() => onSetReviewFilter('flagged')}
             className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               reviewFilter === 'flagged'
-                ? 'bg-white dark:bg-slate-900 text-amber-600 dark:text-amber-400 shadow-sm'
+                ? 'bg-white dark:bg-slate-900 text-warning-600 dark:text-warning-400 shadow-sm'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <Bookmark className="w-3 h-3 fill-amber-500" />
+            <Bookmark className="w-3 h-3 fill-warning-500 text-warning-500" />
             <span>Flagged ({flagged.size})</span>
           </button>
         </div>
