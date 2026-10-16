@@ -322,20 +322,24 @@ export async function POST(request: Request) {
 
       await transporter.sendMail(mailOptions);
 
+      const count = totalQuestions || body.questionResults?.length || 50;
+
       return NextResponse.json({
         success: true,
         preview: false,
         recipient: targetRecipient,
-        message: `Final result with all 30 questions successfully delivered to ${targetRecipient}!`,
+        message: `Final result with all ${count} questions successfully delivered to ${targetRecipient}!`,
       });
     }
+
+    const count = totalQuestions || body.questionResults?.length || 50;
 
     // If SMTP is not yet configured, return preview mode success with clear explanation
     return NextResponse.json({
       success: true,
       preview: true,
       recipient: targetRecipient,
-      message: `Final result with all 30 question details queued for ${targetRecipient}! (To enable live email delivery, configure SMTP_HOST, SMTP_USER & SMTP_PASS in .env.local)`,
+      message: `Final result with all ${count} question details queued for ${targetRecipient}! (To enable live email delivery, configure SMTP_HOST, SMTP_USER & SMTP_PASS in .env.local)`,
       previewDetails: {
         to: targetRecipient,
         candidateName: body.candidateName || 'Anonymous',
