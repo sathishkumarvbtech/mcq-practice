@@ -126,8 +126,8 @@ export default function TestResultViewer({
         </div>
       </div>
 
-      {/* Test Cases List */}
-      <div className="p-3 space-y-3">
+      {/* Test Cases List with bounded scrolling to prevent over-scroll */}
+      <div className="p-3 space-y-3 max-h-95 overflow-y-auto pr-1.5">
         {results.map((result, idx) => {
           const tc = testCases.find((item) => item.id === result.testCaseId);
           const diagnostic = !result.passed
@@ -287,7 +287,7 @@ export default function TestResultViewer({
             </div>
 
             {showFullProblemHint && (
-              <div className="space-y-3 pt-1">
+              <div className="space-y-3 pt-1 max-h-55 overflow-y-auto pr-1">
                 {/* Conceptual Solution Hint */}
                 {problem.solutionHint && (
                   <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-200 leading-relaxed">
