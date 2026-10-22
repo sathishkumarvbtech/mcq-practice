@@ -203,9 +203,13 @@ if __name__ == "__main__":
         resolve({ stdout, stderr, exitCode, timedOut });
       });
 
-      pyProcess.on('error', (err) => {
+      pyProcess.on('error', (err: NodeJS.ErrnoException) => {
         clearTimeout(timer);
-        resolve({ stdout, stderr: err.message, exitCode: -1, timedOut: false });
+        const isEnoent = err.code === 'ENOENT' || err.message?.includes('ENOENT');
+        const errorMessage = isEnoent
+          ? 'Python 3 executable not found in server runtime (spawn python3 ENOENT). For serverless deployments like Vercel, the app automatically executes Python in-browser via Pyodide WebAssembly.'
+          : err.message;
+        resolve({ stdout, stderr: errorMessage, exitCode: -1, timedOut: false });
       });
     });
 
