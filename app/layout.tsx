@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Python MCQ Arena · 50 In-Depth Questions (W3Schools Core Curriculum)',
-  description: 'Master Python fundamentals and core nuances with 50 in-depth questions covering Syntax, Output, Comments, Variables, Scope, Data Types, Numbers, Casting, Strings, and Booleans.',
-  keywords: ['Python', 'MCQ', 'Quiz', 'Programming', 'Python Basics', 'W3Schools', 'Python Intermediate', 'Data Types'],
+  title: 'Python Beginner Practice · 25 Coding Problems & Interactive Quiz',
+  description: 'Master Python fundamentals with 25 hands-on coding problems across 5 levels, automated test verification, internal execution breakdowns, and 25 correlated MCQ quiz questions.',
+  keywords: ['Python', 'Beginner Python', 'Python Practice', 'Coding Problems', 'Python Quiz', 'Ternary Operator', 'Logical Operators', 'Data Types'],
 };
 
 export const viewport: Viewport = {

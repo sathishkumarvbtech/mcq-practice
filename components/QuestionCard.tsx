@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Bookmark, Check, X, Lightbulb, ArrowLeft, ArrowRight, CornerDownLeft } from 'lucide-react';
-import { Question } from '../types/quiz';
+import { Bookmark, Check, X, Lightbulb, ArrowLeft, ArrowRight, CornerDownLeft, Code2 } from 'lucide-react';
+import { Question, QuizMode } from '../types/quiz';
 import FormattedText from './FormattedText';
 
 interface QuestionCardProps {
@@ -13,8 +13,9 @@ interface QuestionCardProps {
   isFlagged: boolean;
   onSelectOption: (optionIndex: number) => void;
   onToggleFlag: () => void;
+  onOpenWorkout?: (question: Question) => void;
   submitted: boolean;
-  mode: 'practice' | 'exam';
+  mode: QuizMode;
   layout: 'single' | 'list';
   onNext?: () => void;
   onPrev?: () => void;
@@ -31,6 +32,7 @@ export default function QuestionCard({
   isFlagged,
   onSelectOption,
   onToggleFlag,
+  onOpenWorkout,
   submitted,
   mode,
   layout,
@@ -70,20 +72,36 @@ export default function QuestionCard({
           )}
         </div>
 
-        {/* Flag Bookmark Action */}
-        <button
-          type="button"
-          onClick={onToggleFlag}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all ${
-            isFlagged
-              ? 'bg-warning-500/15 text-warning-600 dark:text-warning-400 border border-warning-500/30'
-              : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-          }`}
-          title={isFlagged ? 'Remove flag' : 'Flag question for review'}
-        >
-          <Bookmark className={`w-3.5 h-3.5 ${isFlagged ? 'fill-warning-500' : ''}`} />
-          <span className="hidden sm:inline">{isFlagged ? 'Flagged' : 'Flag'}</span>
-        </button>
+        {/* Action Buttons: Work Out + Flag */}
+        <div className="flex items-center gap-2">
+          {onOpenWorkout && (
+            <button
+              type="button"
+              onClick={() => onOpenWorkout(question)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-python-blue dark:text-python-blue-light hover:bg-brand-50 dark:hover:bg-brand-950/40 border border-brand-200/80 dark:border-brand-800/80 transition-all cursor-pointer shadow-2xs"
+              title="Test and execute code in Python scratchpad"
+            >
+              <Code2 className="w-3.5 h-3.5 text-python-blue-light" />
+              <span className="hidden sm:inline">Work Out Code</span>
+              <span className="sm:hidden">Work Out</span>
+            </button>
+          )}
+
+          {/* Flag Bookmark Action */}
+          <button
+            type="button"
+            onClick={onToggleFlag}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              isFlagged
+                ? 'bg-warning-500/15 text-warning-600 dark:text-warning-400 border border-warning-500/30'
+                : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+            }`}
+            title={isFlagged ? 'Remove flag' : 'Flag question for review'}
+          >
+            <Bookmark className={`w-3.5 h-3.5 ${isFlagged ? 'fill-warning-500' : ''}`} />
+            <span className="hidden sm:inline">{isFlagged ? 'Flagged' : 'Flag'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Question Text */}

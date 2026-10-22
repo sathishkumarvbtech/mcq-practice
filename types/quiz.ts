@@ -7,7 +7,55 @@ export type Question = {
   explanation: string;
 };
 
-export type QuizMode = 'practice' | 'exam';
+export type QuizMode = 'practice' | 'exam' | 'workout';
+
+export type TestCase = {
+  id: string;
+  inputDescription: string;
+  testCall: string;
+  expectedOutput: string;
+  isSecret?: boolean;
+};
+
+export type WorkoutProblem = {
+  id: string;
+  title: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  topic: string;
+  description: string;
+  examples: {
+    input: string;
+    output: string;
+    explanation?: string;
+  }[];
+  constraints?: string[];
+  starterCode: string;
+  solutionHint?: string;
+  logicExplanation?: {
+    summary: string;
+    steps: string[];
+    canonicalSolution: string;
+    keyTakeaway: string;
+  };
+  internalMechanism?: string;
+  testCases: TestCase[];
+};
+
+export type ExecutionResult = {
+  stdout: string;
+  stderr: string;
+  executionTimeMs: number;
+  success: boolean;
+  error?: string;
+};
+
+export type TestCaseResult = {
+  testCaseId: string;
+  passed: boolean;
+  actualOutput: string;
+  expectedOutput: string;
+  error?: string;
+};
 
 export type ViewLayout = 'single' | 'list';
 
