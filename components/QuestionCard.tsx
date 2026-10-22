@@ -179,29 +179,87 @@ export default function QuestionCard({
         })}
       </div>
 
-      {/* Explanation Box */}
+      {/* Explanation & Hint Box */}
       {showFeedback && (
         <div
           className={`rounded-xl p-4 sm:p-5 border transition-all animate-fade-in ${
             isCorrect
               ? 'bg-success-50/50 dark:bg-success-950/20 border-success-200/80 dark:border-success-800/40 text-success-950 dark:text-success-100'
-              : 'bg-brand-50/50 dark:bg-brand-950/20 border-brand-200/80 dark:border-brand-800/40 text-slate-800 dark:text-slate-200'
+              : 'bg-danger-50/40 dark:bg-danger-950/20 border-danger-200/80 dark:border-danger-800/50 text-slate-800 dark:text-slate-200'
           }`}
         >
+          {/* Header indicator */}
           <div className="flex items-start gap-3">
-            <div className="p-1.5 rounded-lg bg-brand-500/10 dark:bg-brand-400/15 text-python-blue dark:text-python-blue-light shrink-0 mt-0.5">
-              <Lightbulb className="w-4 h-4" />
+            <div
+              className={`p-1.5 rounded-lg shrink-0 mt-0.5 ${
+                isCorrect
+                  ? 'bg-success-500/15 text-success-600 dark:text-success-400'
+                  : 'bg-danger-500/15 text-danger-600 dark:text-danger-400'
+              }`}
+            >
+              {isCorrect ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
             </div>
-            <div className="space-y-1.5 flex-1 min-w-0">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-python-blue dark:text-python-blue-light">
-                Explanation & Concept
-              </h4>
-              <p className="text-sm font-medium leading-relaxed">
-                <FormattedText text={question.explanation} />
-              </p>
-              <div className="pt-1.5 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1.5 flex-wrap">
+
+            <div className="space-y-2.5 flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <h4
+                  className={`text-xs font-bold uppercase tracking-wider ${
+                    isCorrect
+                      ? 'text-success-700 dark:text-success-400'
+                      : 'text-danger-700 dark:text-danger-400'
+                  }`}
+                >
+                  {isCorrect ? '✅ Correct Answer!' : '❌ Incorrect Selection · Issue & Closest Hint'}
+                </h4>
+
+                <span className="text-[11px] font-mono text-slate-500">
+                  Topic: {question.topic}
+                </span>
+              </div>
+
+              {/* If incorrect, show what was chosen and why it's a trap/mistake */}
+              {!isCorrect && selectedOption !== undefined && (
+                <div className="p-3 rounded-lg bg-white/70 dark:bg-slate-900/80 border border-danger-200/60 dark:border-danger-900/60 text-xs space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-danger-600 dark:text-danger-400 font-bold">
+                    <span>Your Choice:</span>
+                    <span className="font-mono bg-danger-50 dark:bg-danger-950 px-1.5 py-0.5 rounded border border-danger-200 dark:border-danger-800">
+                      Option {optionLetters[selectedOption]}
+                    </span>
+                  </div>
+                  <p className="text-slate-700 dark:text-slate-300 font-sans italic">
+                    &quot;{question.options[selectedOption]}&quot;
+                  </p>
+                  <p className="text-[11px] text-danger-700 dark:text-danger-300 font-medium pt-0.5">
+                    <strong>Issue with this choice:</strong> This option does not adhere to Python&apos;s rules for {question.topic.toLowerCase()}. See the explanation and correct answer below.
+                  </p>
+                </div>
+              )}
+
+              {/* Explanation Text */}
+              <div className="space-y-1">
+                <div className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                  Concept & Detailed Explanation:
+                </div>
+                <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                  <FormattedText text={question.explanation} />
+                </p>
+              </div>
+
+              {/* Closest Hint / Question Hint if present */}
+              {question.hint && (
+                <div className="flex items-start gap-2 p-2.5 rounded-lg bg-warning-500/10 border border-warning-500/25 text-xs text-slate-700 dark:text-slate-300">
+                  <Lightbulb className="w-4 h-4 text-python-gold shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-python-gold font-bold">Closest Problem Hint:</strong>{' '}
+                    <span>{question.hint}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Correct Answer badge */}
+              <div className="pt-1.5 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-2 flex-wrap border-t border-slate-200/60 dark:border-slate-800/60">
                 <span className="font-semibold text-slate-700 dark:text-slate-300">Correct Answer:</span>
-                <span className="font-mono bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-success-600 dark:text-success-400 font-bold">
+                <span className="font-mono bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-success-300 dark:border-success-800 text-success-700 dark:text-success-400 font-bold">
                   {optionLetters[question.correctIndex]}: {question.options[question.correctIndex]}
                 </span>
               </div>

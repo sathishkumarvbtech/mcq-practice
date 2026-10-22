@@ -553,6 +553,9 @@ export default function ProblemWorkoutView({ onWorkoutProgressChange }: ProblemW
                   isExecuting={isExecuting}
                   onNextProblem={handleNextProblem}
                   hasNextProblem={hasNextProblem}
+                  problem={currentProblem}
+                  userCode={currentCode}
+                  onRevealHint={() => setShowHint(true)}
                 />
 
                 {testResults && testResults.length > 0 && testResults.every((t) => t.passed) && !hasNextProblem && (

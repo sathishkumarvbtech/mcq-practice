@@ -5,6 +5,7 @@ export type Question = {
   options: string[];
   correctIndex: number;
   explanation: string;
+  hint?: string;
 };
 
 export type QuizMode = 'practice' | 'exam' | 'workout';
@@ -15,6 +16,7 @@ export type TestCase = {
   testCall: string;
   expectedOutput: string;
   isSecret?: boolean;
+  hint?: string;
 };
 
 export type WorkoutProblem = {

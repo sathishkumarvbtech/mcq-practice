@@ -1,8 +1,20 @@
 'use client';
 
-import React from 'react';
-import { CheckCircle2, XCircle, AlertTriangle, ArrowRight } from 'lucide-react';
-import type { TestCase, TestCaseResult } from '../../types/quiz';
+import React, { useState } from 'react';
+import {
+  CheckCircle2,
+  XCircle,
+  AlertTriangle,
+  ArrowRight,
+  Lightbulb,
+  HelpCircle,
+  Info,
+  ChevronDown,
+  ChevronUp,
+  Sparkles,
+} from 'lucide-react';
+import type { TestCase, TestCaseResult, WorkoutProblem } from '../../types/quiz';
+import { analyzeTestFailure } from '../../lib/testDiagnosticHelper';
 
 interface TestResultViewerProps {
   testCases: TestCase[];
@@ -10,6 +22,9 @@ interface TestResultViewerProps {
   isExecuting: boolean;
   onNextProblem?: () => void;
   hasNextProblem?: boolean;
+  problem?: WorkoutProblem;
+  userCode?: string;
+  onRevealHint?: () => void;
 }
 
 export default function TestResultViewer({
@@ -18,7 +33,12 @@ export default function TestResultViewer({
   isExecuting,
   onNextProblem,
   hasNextProblem,
+  problem,
+  userCode,
+  onRevealHint,
 }: TestResultViewerProps) {
+  const [showFullProblemHint, setShowFullProblemHint] = useState(true);
+
   if (isExecuting) {
     return (
       <div className="flex flex-col items-center justify-center py-8 rounded-xl border border-slate-800 bg-slate-950 text-slate-400">
@@ -61,6 +81,7 @@ export default function TestResultViewer({
   const passedCount = results.filter((r) => r.passed).length;
   const totalCount = results.length;
   const allPassed = passedCount === totalCount;
+  const failedResults = results.filter((r) => !r.passed);
 
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-950 overflow-hidden shadow-inner">
@@ -96,7 +117,9 @@ export default function TestResultViewer({
               title="Next challenge (or press Enter)"
             >
               <span>Next Challenge</span>
-              <span className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-success-700/80 font-mono">Enter ↵</span>
+              <span className="hidden sm:inline text-[10px] px-1 py-0.5 rounded bg-success-700/80 font-mono">
+                Enter ↵
+              </span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           )}
@@ -104,18 +127,23 @@ export default function TestResultViewer({
       </div>
 
       {/* Test Cases List */}
-      <div className="p-3 space-y-2.5">
+      <div className="p-3 space-y-3">
         {results.map((result, idx) => {
           const tc = testCases.find((item) => item.id === result.testCaseId);
+          const diagnostic = !result.passed
+            ? analyzeTestFailure(result, tc, problem, userCode)
+            : null;
+
           return (
             <div
               key={result.testCaseId}
-              className={`p-3 rounded-xl border text-xs font-mono transition-colors ${
+              className={`p-3.5 rounded-xl border text-xs font-mono transition-colors ${
                 result.passed
                   ? 'bg-slate-900/60 border-success-900/40'
-                  : 'bg-danger-950/20 border-danger-900/50'
+                  : 'bg-danger-950/25 border-danger-900/60 shadow-sm'
               }`}
             >
+              {/* Header */}
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   {result.passed ? (
@@ -147,7 +175,7 @@ export default function TestResultViewer({
               )}
 
               {/* Comparison */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] mb-2">
                 <div className="bg-slate-950/60 p-2 rounded border border-slate-800">
                   <div className="text-slate-500 mb-0.5">Expected:</div>
                   <div className="text-slate-200 font-semibold">{result.expectedOutput}</div>
@@ -161,22 +189,150 @@ export default function TestResultViewer({
                   }`}
                 >
                   <div className="text-slate-500 mb-0.5">Actual:</div>
-                  <div className="font-semibold">{result.actualOutput}</div>
+                  <div className="font-semibold">
+                    {result.actualOutput ? (
+                      result.actualOutput
+                    ) : (
+                      <span className="text-slate-500 italic">(empty - no output)</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
+              {/* Specific Test Error Traceback if any */}
               {result.error && (
-                <div className="mt-2 text-danger-400 text-[11px] bg-danger-950/40 p-2 rounded border border-danger-900/50 flex items-start gap-1.5">
+                <div className="mt-2 text-danger-400 text-[11px] bg-danger-950/50 p-2 rounded border border-danger-900/50 flex items-start gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                  <span>{result.error}</span>
+                  <span className="break-all">{result.error}</span>
+                </div>
+              )}
+
+              {/* Targeted Diagnostic & Closest Hint for this failed test */}
+              {diagnostic && (
+                <div className="mt-3 p-2.5 rounded-lg bg-slate-950/90 border border-warning-500/30 text-xs font-sans space-y-2">
+                  <div className="flex items-start gap-2">
+                    <div className="p-1 rounded bg-danger-500/10 text-danger-400 shrink-0 mt-0.5">
+                      <HelpCircle className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-danger-300 text-[11px]">
+                        Issue: {diagnostic.issueTitle}
+                      </div>
+                      <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                        {diagnostic.issueDescription}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2 pt-1.5 border-t border-slate-800/80">
+                    <div className="p-1 rounded bg-python-gold/15 text-python-gold shrink-0 mt-0.5">
+                      <Lightbulb className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-python-gold text-[11px]">
+                        Closest Hint & Solution Guidance:
+                      </div>
+                      <p className="text-[11px] text-slate-200 mt-0.5 leading-relaxed font-mono">
+                        {diagnostic.closestHint}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
           );
         })}
 
+        {/* Global Failure Help & Problem Hint Panel */}
+        {!allPassed && problem && (
+          <div className="mt-4 rounded-xl border border-warning-500/35 bg-linear-to-b from-warning-950/30 via-slate-950 to-slate-950 p-4 text-xs font-sans shadow-lg animate-fade-in space-y-3">
+            <div className="flex items-center justify-between border-b border-warning-500/20 pb-2.5">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-warning-500/20 text-python-gold">
+                  <Lightbulb className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-python-gold text-xs uppercase tracking-wide">
+                    What&apos;s the Issue? Problem Hint & Guidance
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    {failedResults.length} test case{failedResults.length > 1 ? 's' : ''} failed. Here is the closest guidance to help you resolve it.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {onRevealHint && (
+                  <button
+                    type="button"
+                    onClick={onRevealHint}
+                    className="text-[11px] font-semibold text-python-gold hover:text-python-gold-dark transition-colors px-2 py-0.5 rounded bg-warning-500/10 border border-warning-500/20"
+                  >
+                    Open Sidebar Hint
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setShowFullProblemHint((prev) => !prev)}
+                  className="p-1 text-slate-400 hover:text-slate-200 transition-colors"
+                  title={showFullProblemHint ? 'Collapse hint' : 'Expand hint'}
+                >
+                  {showFullProblemHint ? (
+                    <ChevronUp className="w-4 h-4" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {showFullProblemHint && (
+              <div className="space-y-3 pt-1">
+                {/* Conceptual Solution Hint */}
+                {problem.solutionHint && (
+                  <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-200 leading-relaxed">
+                    <div className="flex items-center gap-1.5 font-bold text-python-gold text-[11px] mb-1">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Key Concept & Rule:</span>
+                    </div>
+                    <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                      {problem.solutionHint}
+                    </p>
+                  </div>
+                )}
+
+                {/* Constraints Checklist */}
+                {problem.constraints && problem.constraints.length > 0 && (
+                  <div className="space-y-1 text-[11px] text-slate-400">
+                    <span className="font-semibold text-slate-300 flex items-center gap-1">
+                      <Info className="w-3 h-3 text-python-blue-light" />
+                      Requirements Checklist:
+                    </span>
+                    <ul className="list-disc list-inside space-y-0.5 pl-1 text-slate-300">
+                      {problem.constraints.map((c, i) => (
+                        <li key={i}>{c}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Example format helper */}
+                {problem.examples && problem.examples[0] && (
+                  <div className="flex items-center gap-2 p-2 rounded bg-slate-900 border border-slate-800/80 text-[11px] font-mono text-slate-400">
+                    <span className="text-slate-500 font-semibold">Expected Format:</span>
+                    <span className="text-success-400 font-bold">
+                      {problem.examples[0].output}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* All Passed Celebration Footer */}
         {allPassed && hasNextProblem && onNextProblem && (
-          <div className="mt-3 p-3.5 rounded-xl bg-success-950/50 border border-success-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-white animate-fade-in shadow-sm">
+          <div className="mt-3 p-3.5 rounded-xl bg-success-950/50 border border-success-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-white animate-fade-in shadow-sm font-sans">
             <div className="flex items-center gap-2.5">
               <span className="text-xl">🎉</span>
               <div>
@@ -184,7 +340,11 @@ export default function TestResultViewer({
                   Challenge Passed! All verification tests succeeded.
                 </div>
                 <div className="text-[11px] text-slate-300">
-                  Study the Logic Workout below, or press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-python-gold font-mono font-bold border border-slate-700 text-[10px]">Enter ↵</kbd> or click Next Challenge to proceed.
+                  Study the Logic Workout below, or press{' '}
+                  <kbd className="px-1.5 py-0.5 rounded bg-slate-800 text-python-gold font-mono font-bold border border-slate-700 text-[10px]">
+                    Enter ↵
+                  </kbd>{' '}
+                  or click Next Challenge to proceed.
                 </div>
               </div>
             </div>
