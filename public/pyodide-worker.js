@@ -80,10 +80,17 @@ test_results = []
 if is_test_run:
     # Convert _py_test_cases safely whether passed as JsProxy, list, or JSON string
     raw_tests = _py_test_cases
+    tests = []
     if isinstance(raw_tests, str):
-        tests = json.loads(raw_tests)
+        try:
+            tests = json.loads(raw_tests)
+        except Exception:
+            tests = []
     elif hasattr(raw_tests, 'to_py'):
-        tests = raw_tests.to_py()
+        try:
+            tests = raw_tests.to_py()
+        except Exception:
+            tests = []
     elif isinstance(raw_tests, list):
         tests = raw_tests
     else:

@@ -56,7 +56,7 @@ export function usePythonRunner() {
         workerRef.current.terminate();
       }
 
-      const worker = new Worker('/pyodide-worker.js');
+      const worker = new Worker('/pyodide-worker.js?v=20261022_v2');
 
       worker.onmessage = (e: MessageEvent<WorkerMessageData>) => {
         const { id, type, stdout, stderr, executionTimeMs, success, testResults, error } = e.data;

@@ -84,7 +84,10 @@ sys.stdout.write(_captured_user_stdout)
 
 # --- Test Runner Harness ---
 def _run_test_suite():
-    tests = json.loads(${JSON.stringify(serializedTests)})
+    try:
+        tests = json.loads(${JSON.stringify(serializedTests)})
+    except Exception:
+        tests = []
     results = []
     
     for t in tests:
