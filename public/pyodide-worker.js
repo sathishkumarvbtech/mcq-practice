@@ -30,40 +30,15 @@ async function initPyodide() {
   return initPromise;
 }
 
-self.onmessage = async (event) => {
-  const { id, type, code, testCases, input } = event.data;
-
-  if (type === 'init') {
-    try {
-      await initPyodide();
-      self.postMessage({ id, type: 'ready' });
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      self.postMessage({ id, type: 'init_error', error: msg });
-    }
-    return;
-  }
-
-  if (type === 'run') {
-    const startTime = performance.now();
-    try {
-      const py = await initPyodide();
-
-      const serializedCode = JSON.stringify(code || '');
-      const serializedInput = JSON.stringify(input || '');
-      const serializedTests = JSON.stringify(testCases || []);
-      const isTestRun = Array.isArray(testCases) && testCases.length > 0;
-
-      const pythonRunnerScript = `
+const PYTHON_RUNNER_HARNESS = `
 import sys
 import io
 import json
 import traceback
 
-user_code = ${serializedCode}
-stdin_input = ${serializedInput}
-test_cases_json = ${serializedTests}
-is_test_run = ${isTestRun ? 'True' : 'False'}
+user_code = _py_user_code
+stdin_input = _py_stdin_input
+is_test_run = _py_is_test_run
 
 if stdin_input:
     sys.stdin = io.StringIO(stdin_input)
@@ -103,11 +78,30 @@ _sandbox_globals['_captured_user_stdout'] = _captured_user_stdout
 
 test_results = []
 if is_test_run:
-    tests = json.loads(test_cases_json)
+    # Convert _py_test_cases safely whether passed as JsProxy, list, or JSON string
+    raw_tests = _py_test_cases
+    if isinstance(raw_tests, str):
+        tests = json.loads(raw_tests)
+    elif hasattr(raw_tests, 'to_py'):
+        tests = raw_tests.to_py()
+    elif isinstance(raw_tests, list):
+        tests = raw_tests
+    else:
+        try:
+            tests = list(raw_tests)
+        except Exception:
+            tests = []
+
     for t in tests:
-        test_id = t.get("id", "")
-        test_call = t.get("testCall", "")
-        expected_raw = str(t.get("expectedOutput", ""))
+        # Support dict access whether dict or JsProxy
+        if isinstance(t, dict):
+            test_id = t.get("id", "")
+            test_call = t.get("testCall", "")
+            expected_raw = str(t.get("expectedOutput", ""))
+        else:
+            test_id = str(getattr(t, "id", ""))
+            test_call = str(getattr(t, "testCall", ""))
+            expected_raw = str(getattr(t, "expectedOutput", ""))
         
         if _user_exec_error:
             test_results.append({
@@ -170,10 +164,40 @@ _runner_output = {
     "success": (_user_exec_error is None) and (not _captured_user_stderr.strip()),
     "testResults": test_results if is_test_run else None
 }
-json.dumps(_runner_output)
+_py_result_json = json.dumps(_runner_output)
 `;
 
-      const resultJson = await py.runPythonAsync(pythonRunnerScript);
+self.onmessage = async (event) => {
+  const { id, type, code, testCases, input } = event.data;
+
+  if (type === 'init') {
+    try {
+      await initPyodide();
+      self.postMessage({ id, type: 'ready' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      self.postMessage({ id, type: 'init_error', error: msg });
+    }
+    return;
+  }
+
+  if (type === 'run') {
+    const startTime = performance.now();
+    try {
+      const py = await initPyodide();
+
+      const isTestRun = Array.isArray(testCases) && testCases.length > 0;
+
+      // Pass input parameters directly into Pyodide globals as serialized JSON / primitives
+      py.globals.set('_py_user_code', code || '');
+      py.globals.set('_py_stdin_input', input || '');
+      // Pass as JSON string to guarantee safe, cross-boundary serialization
+      py.globals.set('_py_test_cases', JSON.stringify(testCases || []));
+      py.globals.set('_py_is_test_run', isTestRun);
+
+      await py.runPythonAsync(PYTHON_RUNNER_HARNESS);
+
+      const resultJson = py.globals.get('_py_result_json');
       const parsed = JSON.parse(resultJson);
       const executionTimeMs = Math.round(performance.now() - startTime);
 
