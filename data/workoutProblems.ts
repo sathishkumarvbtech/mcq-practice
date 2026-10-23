@@ -1040,4 +1040,1212 @@ export const workoutProblems: WorkoutProblem[] = [
       },
     ],
   },
+
+
+  // ==========================================
+  // LEVEL 6: IF / ELSE BEGINNER PRACTICE (Q26 - Q35)
+  // LEVEL 7: ELIF INTERMEDIATE PRACTICE (Q36 - Q45)
+  // LEVEL 8: ADVANCED CONDITIONAL LOGIC (Q46 - Q50)
+  // LEVEL 9: NEW TERNARY PRACTICE (Q51 - Q55)
+  // ==========================================
+  {
+    id: 'prob-26',
+    title: "26. If/Else: Positive or Negative",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given number = -7, print 'Positive' if it is greater than 0; otherwise print 'Zero or Negative'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Zero or Negative",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Check whether number is greater than zero, then choose one of the two messages.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "number = -7\nif number > 0:\n    print('Positive')\nelse:\n    print('Zero or Negative')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-26-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Zero or Negative",
+      },
+    ],
+  },
+  {
+    id: 'prob-27',
+    title: "27. If/Else: Pass or Fail",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given marks = 42, print 'Pass' if marks are at least 35; otherwise print 'Fail'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Pass",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use marks >= 35 as the condition.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "marks = 42\nif marks >= 35:\n    print('Pass')\nelse:\n    print('Fail')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-27-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Pass",
+      },
+    ],
+  },
+  {
+    id: 'prob-28',
+    title: "28. If/Else: Divisible by 5",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given number = 35, print 'Divisible by 5' if it divides evenly by 5; otherwise print 'Not divisible by 5'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Divisible by 5",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use the modulo operator (%) to check the remainder.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "number = 35\nif number % 5 == 0:\n    print('Divisible by 5')\nelse:\n    print('Not divisible by 5')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-28-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Divisible by 5",
+      },
+    ],
+  },
+  {
+    id: 'prob-29',
+    title: "29. If/Else: Password Length",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given password = 'python123', print 'Valid length' if it has at least 8 characters; otherwise print 'Too short'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Valid length",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use len(password) in the condition.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "password = 'python123'\nif len(password) >= 8:\n    print('Valid length')\nelse:\n    print('Too short')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-29-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Valid length",
+      },
+    ],
+  },
+  {
+    id: 'prob-30',
+    title: "30. If/Else: Freezing Temperature",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given temperature = 2, print 'Freezing or below' if temperature is 0 or lower; otherwise print 'Above freezing'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Above freezing",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Compare temperature with 0.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "temperature = 2\nif temperature <= 0:\n    print('Freezing or below')\nelse:\n    print('Above freezing')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-30-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Above freezing",
+      },
+    ],
+  },
+  {
+    id: 'prob-31',
+    title: "31. If/Else: Login Check",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given username = 'sathish' and correct_username = 'sathish', print 'Login accepted' if they match; otherwise print 'Invalid username'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Login accepted",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use == to compare the two strings.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "username = 'sathish'\ncorrect_username = 'sathish'\nif username == correct_username:\n    print('Login accepted')\nelse:\n    print('Invalid username')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-31-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Login accepted",
+      },
+    ],
+  },
+  {
+    id: 'prob-32',
+    title: "32. If/Else: Check Empty Name",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given name = '', print 'Name missing' if the string is empty; otherwise print 'Name entered'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Name missing",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Compare name with an empty string.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "name = ''\nif name == '':\n    print('Name missing')\nelse:\n    print('Name entered')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-32-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Name missing",
+      },
+    ],
+  },
+  {
+    id: 'prob-33',
+    title: "33. If/Else: Weekend Check",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given day = 'Sunday', print 'Weekend' if day is Saturday or Sunday; otherwise print 'Weekday'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Weekend",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use or to test either weekend day.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "day = 'Sunday'\nif day == 'Saturday' or day == 'Sunday':\n    print('Weekend')\nelse:\n    print('Weekday')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-33-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Weekend",
+      },
+    ],
+  },
+  {
+    id: 'prob-34',
+    title: "34. If/Else: Minimum Purchase",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given amount = 450, print 'Discount available' if amount is at least 500; otherwise print 'No discount'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "No discount",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Check the amount against 500.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "amount = 450\nif amount >= 500:\n    print('Discount available')\nelse:\n    print('No discount')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-34-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "No discount",
+      },
+    ],
+  },
+  {
+    id: 'prob-35',
+    title: "35. If/Else: Compare Two Numbers",
+    difficulty: "Beginner",
+    topic: "If / Else",
+    description: "Given a = 18 and b = 12, print 'A is larger' if a is greater than b; otherwise print 'A is not larger'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "A is larger",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use a > b.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "a = 18\nb = 12\nif a > b:\n    print('A is larger')\nelse:\n    print('A is not larger')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-35-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "A is larger",
+      },
+    ],
+  },
+  {
+    id: 'prob-36',
+    title: "36. Elif: Grade Calculator",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given marks = 86, print grade A for marks >= 90, B for marks >= 80, C for marks >= 70, D for marks >= 60, otherwise F.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "B",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Check the highest threshold first and use elif for the remaining ranges.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "marks = 86\nif marks >= 90:\n    print('A')\nelif marks >= 80:\n    print('B')\nelif marks >= 70:\n    print('C')\nelif marks >= 60:\n    print('D')\nelse:\n    print('F')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-36-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "B",
+      },
+    ],
+  },
+  {
+    id: 'prob-37',
+    title: "37. Elif: Age Group",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given age = 14, print 'Child' for ages below 13, 'Teenager' for 13–19, 'Adult' for 20–59, and 'Senior' for 60 or older.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Teenager",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Order conditions from the youngest age group upward.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "age = 14\nif age < 13:\n    print('Child')\nelif age <= 19:\n    print('Teenager')\nelif age <= 59:\n    print('Adult')\nelse:\n    print('Senior')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-37-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Teenager",
+      },
+    ],
+  },
+  {
+    id: 'prob-38',
+    title: "38. Elif: Traffic Light",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given light = 'yellow', print 'Stop' for red, 'Get ready' for yellow, 'Go' for green, and 'Invalid light' for anything else.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Get ready",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Compare the light value in each branch.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "light = 'yellow'\nif light == 'red':\n    print('Stop')\nelif light == 'yellow':\n    print('Get ready')\nelif light == 'green':\n    print('Go')\nelse:\n    print('Invalid light')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-38-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Get ready",
+      },
+    ],
+  },
+  {
+    id: 'prob-39',
+    title: "39. Elif: Month Season",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given month = 4, print 'Winter' for 12, 1, 2; 'Spring' for 3, 4, 5; 'Summer' for 6, 7, 8; 'Autumn' for 9, 10, 11; otherwise print 'Invalid month'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Spring",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use in with tuples of month numbers.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "month = 4\nif month in (12, 1, 2):\n    print('Winter')\nelif month in (3, 4, 5):\n    print('Spring')\nelif month in (6, 7, 8):\n    print('Summer')\nelif month in (9, 10, 11):\n    print('Autumn')\nelse:\n    print('Invalid month')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-39-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Spring",
+      },
+    ],
+  },
+  {
+    id: 'prob-40',
+    title: "40. Elif: Calculator Operation",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given a = 10, b = 5, and operation = '*', perform addition for '+', subtraction for '-', multiplication for '*', division for '/', and print 'Invalid operation' otherwise.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "50",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Compare operation with each supported symbol.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "a = 10\nb = 5\noperation = '*'\nif operation == '+':\n    print(a + b)\nelif operation == '-':\n    print(a - b)\nelif operation == '*':\n    print(a * b)\nelif operation == '/':\n    print(a / b)\nelse:\n    print('Invalid operation')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-40-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "50",
+      },
+    ],
+  },
+  {
+    id: 'prob-41',
+    title: "41. Elif: Shipping Cost",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given weight = 7, print shipping cost 5 for weight <= 1, 10 for weight <= 5, 20 for weight <= 10, and 30 for heavier packages.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "20",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use increasing weight thresholds.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "weight = 7\nif weight <= 1:\n    print(5)\nelif weight <= 5:\n    print(10)\nelif weight <= 10:\n    print(20)\nelse:\n    print(30)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-41-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "20",
+      },
+    ],
+  },
+  {
+    id: 'prob-42',
+    title: "42. Elif: BMI Category",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given bmi = 27.2, print 'Underweight' if below 18.5, 'Normal' if below 25, 'Overweight' if below 30, otherwise 'Obesity'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Overweight",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Compare the BMI against each upper boundary in order.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "bmi = 27.2\nif bmi < 18.5:\n    print('Underweight')\nelif bmi < 25:\n    print('Normal')\nelif bmi < 30:\n    print('Overweight')\nelse:\n    print('Obesity')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-42-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Overweight",
+      },
+    ],
+  },
+  {
+    id: 'prob-43',
+    title: "43. Elif: Electricity Bill Slabs",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given units = 180, print 'Low usage' for units <= 100, 'Medium usage' for units <= 200, 'High usage' for units <= 300, and 'Very high usage' otherwise.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Medium usage",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Check each slab from lowest to highest.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "units = 180\nif units <= 100:\n    print('Low usage')\nelif units <= 200:\n    print('Medium usage')\nelif units <= 300:\n    print('High usage')\nelse:\n    print('Very high usage')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-43-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Medium usage",
+      },
+    ],
+  },
+  {
+    id: 'prob-44',
+    title: "44. Elif: Character Type",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given char = '7', print 'Digit' if it is a digit, 'Letter' if it is alphabetic, otherwise print 'Special character'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Digit",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use isdigit() and isalpha() string methods.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "char = '7'\nif char.isdigit():\n    print('Digit')\nelif char.isalpha():\n    print('Letter')\nelse:\n    print('Special character')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-44-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Digit",
+      },
+    ],
+  },
+  {
+    id: 'prob-45',
+    title: "45. Elif: Login Role",
+    difficulty: "Intermediate",
+    topic: "If / Elif / Else",
+    description: "Given role = 'editor', print 'Full access' for admin, 'Can edit content' for editor, 'Read only' for viewer, otherwise 'Unknown role'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Can edit content",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use one branch for each supported role.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "role = 'editor'\nif role == 'admin':\n    print('Full access')\nelif role == 'editor':\n    print('Can edit content')\nelif role == 'viewer':\n    print('Read only')\nelse:\n    print('Unknown role')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-45-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Can edit content",
+      },
+    ],
+  },
+  {
+    id: 'prob-46',
+    title: "46. Advanced: Leap Year",
+    difficulty: "Advanced",
+    topic: "Conditional Logic",
+    description: "Given year = 2024, print 'Leap year' if the year is divisible by 400, or divisible by 4 but not by 100; otherwise print 'Not a leap year'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Leap year",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Use the full leap-year rule with and, or, and parentheses.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "year = 2024\nif year % 400 == 0 or (year % 4 == 0 and year % 100 != 0):\n    print('Leap year')\nelse:\n    print('Not a leap year')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-46-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Leap year",
+      },
+    ],
+  },
+  {
+    id: 'prob-47',
+    title: "47. Advanced: Triangle Classification",
+    difficulty: "Advanced",
+    topic: "Nested If / Else",
+    description: "Given sides a = 5, b = 5, c = 8, first check whether the sides form a valid triangle. If valid, print 'Equilateral', 'Isosceles', or 'Scalene'. Otherwise print 'Invalid triangle'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Isosceles",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Validate the triangle inequality before classifying its sides.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "a = 5\nb = 5\nc = 8\nif a + b > c and a + c > b and b + c > a:\n    if a == b == c:\n        print('Equilateral')\n    elif a == b or a == c or b == c:\n        print('Isosceles')\n    else:\n        print('Scalene')\nelse:\n    print('Invalid triangle')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-47-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Isosceles",
+      },
+    ],
+  },
+  {
+    id: 'prob-48',
+    title: "48. Advanced: Loan Eligibility",
+    difficulty: "Advanced",
+    topic: "Compound Conditions",
+    description: "Given age = 28, salary = 42000, and credit_score = 720, print 'Eligible' only if age is at least 21, salary is at least 30000, and credit score is at least 650; otherwise print 'Not eligible'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Eligible",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "All three conditions must be true.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "age = 28\nsalary = 42000\ncredit_score = 720\nif age >= 21 and salary >= 30000 and credit_score >= 650:\n    print('Eligible')\nelse:\n    print('Not eligible')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-48-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Eligible",
+      },
+    ],
+  },
+  {
+    id: 'prob-49',
+    title: "49. Advanced: Ticket Price",
+    difficulty: "Advanced",
+    topic: "Nested If / Elif",
+    description: "Given age = 67 and is_student = False, set ticket price to 5 for children under 12, 8 for students, 10 for seniors aged 65 or more, and 15 otherwise. Print the price.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "10",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Order the rules carefully because the first matching branch wins.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "age = 67\nis_student = False\nif age < 12:\n    price = 5\nelif is_student:\n    price = 8\nelif age >= 65:\n    price = 10\nelse:\n    price = 15\nprint(price)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-49-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "10",
+      },
+    ],
+  },
+  {
+    id: 'prob-50',
+    title: "50. Advanced: Validate Three Inputs",
+    difficulty: "Advanced",
+    topic: "Input Validation Logic",
+    description: "Given username = 'sathish', password = 'abc12345', and otp = '4821', print 'Accepted' only if username is not empty, password has at least 8 characters, and OTP has exactly 4 characters; otherwise print 'Rejected'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Accepted",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Combine non-empty and length checks with and.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "username = 'sathish'\npassword = 'abc12345'\notp = '4821'\nif username != '' and len(password) >= 8 and len(otp) == 4:\n    print('Accepted')\nelse:\n    print('Rejected')",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-50-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Accepted",
+      },
+    ],
+  },
+  {
+    id: 'prob-51',
+    title: "51. Ternary: Largest of Two",
+    difficulty: "Beginner",
+    topic: "Ternary Operator",
+    description: "Given a = 14 and b = 9, use a ternary expression to assign the larger number to largest and print it.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "14",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Write value_if_true if condition else value_if_false.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "a = 14\nb = 9\nlargest = a if a > b else b\nprint(largest)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-51-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "14",
+      },
+    ],
+  },
+  {
+    id: 'prob-52',
+    title: "52. Ternary: Discount Status",
+    difficulty: "Beginner",
+    topic: "Ternary Operator",
+    description: "Given purchase = 275, assign 'Discount' if purchase is at least 300; otherwise assign 'No discount' using a ternary expression. Print the result.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "No discount",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Put the condition between the two possible values.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "purchase = 275\nstatus = 'Discount' if purchase >= 300 else 'No discount'\nprint(status)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-52-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "No discount",
+      },
+    ],
+  },
+  {
+    id: 'prob-53',
+    title: "53. Ternary: Temperature Label",
+    difficulty: "Intermediate",
+    topic: "Ternary Operator",
+    description: "Given temperature = 31, use a ternary expression to print 'Hot' when temperature is greater than 30; otherwise print 'Comfortable'.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Hot",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Assign the result of the conditional expression to a variable.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "temperature = 31\nlabel = 'Hot' if temperature > 30 else 'Comfortable'\nprint(label)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-53-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Hot",
+      },
+    ],
+  },
+  {
+    id: 'prob-54',
+    title: "54. Ternary: Safe Division",
+    difficulty: "Intermediate",
+    topic: "Ternary Operator",
+    description: "Given a = 20 and b = 0, use a ternary expression to assign a / b if b is not zero; otherwise assign 'Cannot divide by zero'. Print the result.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Cannot divide by zero",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "Check the divisor before choosing the division expression.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "a = 20\nb = 0\nresult = a / b if b != 0 else 'Cannot divide by zero'\nprint(result)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-54-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Cannot divide by zero",
+      },
+    ],
+  },
+  {
+    id: 'prob-55',
+    title: "55. Ternary: Nested Rating",
+    difficulty: "Advanced",
+    topic: "Nested Ternary Operator",
+    description: "Given score = 76, use a nested ternary expression to assign 'Excellent' for scores >= 90, 'Good' for scores >= 70, and 'Needs practice' otherwise. Print the result.",
+    examples: [
+      {
+        input: 'Use the values given in the description',
+        output: "Good",
+        explanation: 'Trace the condition(s) in order to determine which branch or expression is selected.',
+      },
+    ],
+    constraints: [
+      'Use the conditional syntax requested in the problem.',
+      'Print the expected result.',
+    ],
+    starterCode: EMPTY_STARTER_CODE,
+    solutionHint: "A nested ternary puts another conditional expression inside the else branch; keep it readable with parentheses.",
+    logicExplanation: {
+      summary: "Practise conditional decision-making using Python comparisons and branching. Understand which condition is evaluated and why the selected result is printed.",
+      steps: [
+        "Read the given variable values carefully.",
+        "Evaluate the condition or conditions using Python comparison and logical operators.",
+        "Select the matching if, elif, else, or ternary branch.",
+        "Print the selected result.",
+      ],
+      canonicalSolution: "score = 76\nrating = 'Excellent' if score >= 90 else ('Good' if score >= 70 else 'Needs practice')\nprint(rating)",
+      keyTakeaway: "Conditions are checked according to Python syntax and order. Test boundary values as well as typical values.",
+    },
+    internalMechanism: "Python evaluates the conditional expression or statement and executes/selects the matching branch based on truth values.",
+    testCases: [
+      {
+        id: 'tc-55-1',
+        inputDescription: 'Check the expected result is printed',
+        testCall: '__stdout_contains__',
+        expectedOutput: "Good",
+      },
+    ],
+  }
 ];

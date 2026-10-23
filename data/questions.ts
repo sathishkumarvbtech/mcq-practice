@@ -344,5 +344,312 @@ export const questions: Question[] = [
     ],
     correctIndex: 0,
     explanation: 'The condition `age >= 18 and has_id` evaluates to `22 >= 18` (True) and `True` -> `True`. The ternary expression evaluates to `"Eligible"`.'
+  },
+
+  // ==========================================
+  // LEVEL 6: IF / ELSE BEGINNER (Q26-Q35)
+  // LEVEL 7: ELIF INTERMEDIATE (Q36-Q45)
+  // LEVEL 8: ADVANCED CONDITIONAL LOGIC (Q46-Q50)
+  // LEVEL 9: TERNARY PRACTICE (Q51-Q55)
+  // ==========================================
+  {
+    id: "q26",
+    topic: "If / Else",
+    question: "Given `number = -7`, what does this code print?\\n```python\\nif number > 0:\\n    print('Positive')\\nelse:\\n    print('Zero or Negative')\\n```",
+    options: [
+      "`Positive`", "`Zero or Negative`", "`-7`", "`SyntaxError`"
+    ],
+    correctIndex: 1,
+    explanation: "Since -7 > 0 is False, Python executes the else block."
+  },
+  {
+    id: "q27",
+    topic: "If / Else",
+    question: "Given `marks = 42`, which message is printed when the pass mark is 35?\\n```python\\nif marks >= 35:\\n    print('Pass')\\nelse:\\n    print('Fail')\\n```",
+    options: [
+      "`Pass`", "`Fail`", "`True`", "`None`"
+    ],
+    correctIndex: 0,
+    explanation: "42 >= 35 is True, so the if block runs."
+  },
+  {
+    id: "q28",
+    topic: "If / Else",
+    question: "Which operator checks whether `number` is divisible by 5 with no remainder?",
+    options: [
+      "`number / 5 == 0`", "`number % 5 == 0`", "`number // 5 == 0`", "`number * 5 == 0`"
+    ],
+    correctIndex: 1,
+    explanation: "The modulo operator (%) gives the remainder."
+  },
+  {
+    id: "q29",
+    topic: "If / Else",
+    question: "Given `password = 'python123'`, what does `len(password) >= 8` evaluate to?",
+    options: [
+      "`False`", "`True`", "`8`", "`TypeError`"
+    ],
+    correctIndex: 1,
+    explanation: "The password contains 9 characters, so its length is at least 8."
+  },
+  {
+    id: "q30",
+    topic: "If / Else",
+    question: "Which keyword handles the alternative when an `if` condition is False?",
+    options: [
+      "`elif`", "`then`", "`else`", "`otherwise`"
+    ],
+    correctIndex: 2,
+    explanation: "`else` handles the remaining case when the preceding if condition is False."
+  },
+  {
+    id: "q31",
+    topic: "If / Else",
+    question: "Given `username = 'sathish'` and `correct_username = 'sathish'`, what does `username == correct_username` return?",
+    options: [
+      "`False`", "`True`", "`sathish`", "`None`"
+    ],
+    correctIndex: 1,
+    explanation: "`==` compares the values of the two strings."
+  },
+  {
+    id: "q32",
+    topic: "If / Else",
+    question: "Which condition checks whether `day` is Saturday OR Sunday?",
+    options: [
+      "`day == 'Saturday' and day == 'Sunday'`", "`day == 'Saturday' or day == 'Sunday'`", "`day = 'Saturday' or 'Sunday'`", "`day in 'Saturday' and 'Sunday'`"
+    ],
+    correctIndex: 1,
+    explanation: "A day cannot be both values at once, so use or."
+  },
+  {
+    id: "q33",
+    topic: "If / Else",
+    question: "Given `amount = 450`, which condition correctly checks whether the amount qualifies for a threshold of 500?",
+    options: [
+      "`amount > 500`", "`amount >= 500`", "`amount == 500`", "`amount <= 500`"
+    ],
+    correctIndex: 1,
+    explanation: "`>=` includes 500 and all values above it."
+  },
+  {
+    id: "q34",
+    topic: "If / Else",
+    question: "Given `a = 18` and `b = 12`, what is printed by `if a > b: print('A is larger') else: print('A is not larger')`?",
+    options: [
+      "`A is not larger`", "`A is larger`", "`18`", "`False`"
+    ],
+    correctIndex: 1,
+    explanation: "18 > 12 is True."
+  },
+  {
+    id: "q35",
+    topic: "If / Else",
+    question: "Which is the correct Python structure?",
+    options: [
+      "`if condition then:`", "`if (condition) {}`", "`if condition:` followed by an indented block", "`when condition:`"
+    ],
+    correctIndex: 2,
+    explanation: "Python uses a colon and indentation for an if block."
+  },
+  {
+    id: "q36",
+    topic: "If / Elif / Else",
+    question: "In an `if/elif/else` chain, when does Python execute an `elif` block?",
+    options: [
+      "Every elif block always runs", "When the preceding if/elif conditions are False and this elif condition is True", "Only when all conditions are True", "Only after else"
+    ],
+    correctIndex: 1,
+    explanation: "Python checks conditions in order and runs the first matching branch."
+  },
+  {
+    id: "q37",
+    topic: "If / Elif / Else",
+    question: "Given `marks = 86`, with A for >=90, B for >=80, C for >=70, what grade is printed?",
+    options: [
+      "`A`", "`B`", "`C`", "`F`"
+    ],
+    correctIndex: 1,
+    explanation: "86 is below 90 but at least 80, so grade B is selected."
+  },
+  {
+    id: "q38",
+    topic: "If / Elif / Else",
+    question: "Which condition order is best for grading thresholds A >= 90, B >= 80, C >= 70?",
+    options: [
+      "Check >=70 first, then >=80, then >=90", "Check >=90 first, then >=80, then >=70", "Check only ==90, ==80, ==70", "Order never matters"
+    ],
+    correctIndex: 1,
+    explanation: "The highest threshold should be checked first to avoid a lower range capturing higher scores."
+  },
+  {
+    id: "q39",
+    topic: "If / Elif / Else",
+    question: "Given `light = 'yellow'`, which branch should run in a red/yellow/green if-elif chain?",
+    options: [
+      "Red branch", "Yellow branch", "Green branch", "Else branch"
+    ],
+    correctIndex: 1,
+    explanation: "The value matches the yellow condition."
+  },
+  {
+    id: "q40",
+    topic: "If / Elif / Else",
+    question: "Which expression checks whether `month` is 3, 4, or 5?",
+    options: [
+      "`month == 3 or 4 or 5`", "`month in (3, 4, 5)`", "`month = (3, 4, 5)`", "`month == 3 and month == 4 and month == 5`"
+    ],
+    correctIndex: 1,
+    explanation: "`in` checks whether the value appears in the tuple."
+  },
+  {
+    id: "q41",
+    topic: "If / Elif / Else",
+    question: "In a calculator program, what should the final `else` usually handle?",
+    options: [
+      "The multiplication case only", "Unsupported or invalid operation symbols", "All valid operations", "The program's imports"
+    ],
+    correctIndex: 1,
+    explanation: "The else branch can report an operation that did not match any supported symbol."
+  },
+  {
+    id: "q42",
+    topic: "If / Elif / Else",
+    question: "Given `weight = 7`, with costs 5 for <=1, 10 for <=5, 20 for <=10, otherwise 30, what cost is selected?",
+    options: [
+      "`5`", "`10`", "`20`", "`30`"
+    ],
+    correctIndex: 2,
+    explanation: "7 is greater than 5 and no more than 10."
+  },
+  {
+    id: "q43",
+    topic: "If / Elif / Else",
+    question: "Given `bmi = 27.2`, which category applies if under 18.5 is Underweight, under 25 Normal, under 30 Overweight, otherwise Obesity?",
+    options: [
+      "`Normal`", "`Underweight`", "`Overweight`", "`Obesity`"
+    ],
+    correctIndex: 2,
+    explanation: "27.2 is less than 30 but not less than 25."
+  },
+  {
+    id: "q44",
+    topic: "If / Elif / Else",
+    question: "What does `char.isdigit()` check?",
+    options: [
+      "Whether a string contains only whitespace", "Whether the string consists of digit characters", "Whether the string is uppercase", "Whether the string is empty"
+    ],
+    correctIndex: 1,
+    explanation: "`isdigit()` is a string method used to test digit characters."
+  },
+  {
+    id: "q45",
+    topic: "If / Elif / Else",
+    question: "Given `role = 'editor'`, what should a role chain return for admin/full access, editor/edit content, viewer/read only?",
+    options: [
+      "`Full access`", "`Can edit content`", "`Read only`", "`Unknown role`"
+    ],
+    correctIndex: 1,
+    explanation: "The role matches the editor branch."
+  },
+  {
+    id: "q46",
+    topic: "Advanced Conditional Logic",
+    question: "Which expression correctly checks the leap-year rule?",
+    options: [
+      "`year % 4 == 0` only", "`year % 400 == 0 or (year % 4 == 0 and year % 100 != 0)`", "`year % 100 == 0` only", "`year / 4 == 0`"
+    ],
+    correctIndex: 1,
+    explanation: "Leap years are divisible by 400, or divisible by 4 but not by 100."
+  },
+  {
+    id: "q47",
+    topic: "Advanced Conditional Logic",
+    question: "For triangle sides `a=5`, `b=5`, `c=8`, what classification applies after validating triangle inequalities?",
+    options: [
+      "Equilateral", "Isosceles", "Scalene", "Invalid triangle"
+    ],
+    correctIndex: 1,
+    explanation: "Two sides are equal, and 5 + 5 > 8, so it is a valid isosceles triangle."
+  },
+  {
+    id: "q48",
+    topic: "Advanced Conditional Logic",
+    question: "A rule requires age >= 21, salary >= 30000, and credit_score >= 650. Which operator joins the requirements if all must pass?",
+    options: [
+      "`or`", "`and`", "`not`", "`is`"
+    ],
+    correctIndex: 1,
+    explanation: "All three requirements must be true, so use and."
+  },
+  {
+    id: "q49",
+    topic: "Advanced Conditional Logic",
+    question: "Why can branch order matter in an `if/elif/else` chain?",
+    options: [
+      "Python runs every matching branch", "Python runs only the first branch whose condition is True", "Python sorts conditions automatically", "The else branch always runs first"
+    ],
+    correctIndex: 1,
+    explanation: "Only the first matching branch executes."
+  },
+  {
+    id: "q50",
+    topic: "Advanced Conditional Logic",
+    question: "Given `age = 67` and `is_student = False`, with child <12 price 5, student price 8, senior >=65 price 10, otherwise 15, what price is selected?",
+    options: [
+      "`5`", "`8`", "`10`", "`15`"
+    ],
+    correctIndex: 2,
+    explanation: "The child and student conditions are false, but the senior condition is true."
+  },
+  {
+    id: "q51",
+    topic: "Ternary Operator",
+    question: "What is the correct Python ternary expression syntax?",
+    options: [
+      "`condition ? a : b`", "`a if condition else b`", "`if condition then a else b`", "`a when condition otherwise b`"
+    ],
+    correctIndex: 1,
+    explanation: "Python's conditional expression is written as value_if_true if condition else value_if_false."
+  },
+  {
+    id: "q52",
+    topic: "Ternary Operator",
+    question: "Given `a=14` and `b=9`, what does `a if a > b else b` return?",
+    options: [
+      "`9`", "`14`", "`True`", "`None`"
+    ],
+    correctIndex: 1,
+    explanation: "The condition 14 > 9 is True, so the expression returns a."
+  },
+  {
+    id: "q53",
+    topic: "Ternary Operator",
+    question: "Given `purchase = 275`, what does `'Discount' if purchase >= 300 else 'No discount'` return?",
+    options: [
+      "`Discount`", "`No discount`", "`275`", "`True`"
+    ],
+    correctIndex: 1,
+    explanation: "275 >= 300 is False, so the else value is returned."
+  },
+  {
+    id: "q54",
+    topic: "Ternary Operator",
+    question: "Why is `result = a / b if b != 0 else 'Cannot divide by zero'` safer than dividing directly?",
+    options: [
+      "It converts b to a string", "It selects the division only when b is not zero", "It ignores the value of b", "It automatically rounds the result"
+    ],
+    correctIndex: 1,
+    explanation: "The conditional expression chooses the error message when b is zero."
+  },
+  {
+    id: "q55",
+    topic: "Ternary Operator",
+    question: "Given `score = 76`, what does `'Excellent' if score >= 90 else ('Good' if score >= 70 else 'Needs practice')` return?",
+    options: [
+      "`Excellent`", "`Good`", "`Needs practice`", "`False`"
+    ],
+    correctIndex: 1,
+    explanation: "76 is below 90 but at least 70, so the nested ternary returns Good."
   }
 ];
